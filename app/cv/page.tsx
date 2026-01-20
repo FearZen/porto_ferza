@@ -10,7 +10,7 @@ const cvData = {
   email: "fernandaazra@gmail.com",
   phone: "+62 821-3109-1937",
   linkedin: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/",
-  cv: "https://drive.google.com/file/d/1O59yhVLhj06g_VUJ7UHpKxGfr2_9rWob/view?usp=drive_link",
+  cv: "https://drive.google.com/file/d/1IzwfT_t0eu0QlHdP7JbSd0VqgQQwUbH8/view?usp=sharing",
   profileImage: "/profile.jpg",
   profile:
     "As a highly motivated Computer Science graduate with hands-on experience in frontend development and system analysis within a banking environment, Fernanda has contributed to building structured digital solutions that improve operational efficiency and data accuracy.",
