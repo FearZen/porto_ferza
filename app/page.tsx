@@ -19,6 +19,13 @@ const projects = [
     images: ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"],
     link: "#",
   },
+  {
+    title: "Growthly - SaaS Dashboard",
+    description: "Business Intelligence Dashboard prototype acting as a 'Control Center' for SaaS founders to monitor MRR, user analytics, and business performance.",
+    tech: ["Next.js", "Data Analytics", "UI/UX Design"],
+    images: ["/login.png", "/Dashboard.png", "/Revenue.png", "/Analytics.png", "/users.png", "/settings.png"],
+    link: "https://growthly-saas.vercel.app/dashboard",
+  },
 ];
 
 const currentlyWorking = [
