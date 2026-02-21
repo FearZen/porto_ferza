@@ -542,13 +542,29 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-white tracking-tight">
                 {projects[selectedProject].title}
               </h3>
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="w-10 h-10 rounded-full bg-zinc-200/50 dark:bg-zinc-800/50 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition-colors"
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-4">
+                {projects[selectedProject].link !== "#" && (
+                  <a
+                    href={projects[selectedProject].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full text-sm font-semibold transition-colors shadow-sm shadow-emerald-500/20"
+                  >
+                    <span>Visit Live Site</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="w-10 h-10 rounded-full bg-zinc-200/50 dark:bg-zinc-800/50 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                  aria-label="Close modal"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
             {/* Modal Content */}
