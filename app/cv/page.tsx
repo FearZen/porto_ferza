@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 
 const cvData = {
   name: "Fernanda Wawang Azraqi",
-  title: "Front End Developer",
+  title: "Computer Science Graduate | Fullstack Developer",
   location: "Surabaya, Indonesia",
   email: "fernandaazra@gmail.com",
   phone: "+62 821-3109-1937",
@@ -12,7 +12,7 @@ const cvData = {
   cv: "https://drive.google.com/file/d/1IzwfT_t0eu0QlHdP7JbSd0VqgQQwUbH8/view?usp=sharing",
   profileImage: "/profile.jpg", // Using the same premium photo
   profile:
-    "As a highly motivated Computer Science graduate with hands-on experience in frontend development and system analysis within a banking environment, Fernanda has contributed to building structured digital solutions that improve operational efficiency and data accuracy.",
+    "A versatile Computer Science graduate and Fullstack Developer with a strong foundation in both enterprise-level infrastructure and modern web development. With hands-on experience in the banking sector (Laravel/PostgreSQL) and the latest SaaS technologies (Next.js/Supabase), I specialize in building robust, data-driven solutions that balance technical efficiency with premium user experiences.",
   education: [
     {
       school: "University of Muhammadiyah Malang",

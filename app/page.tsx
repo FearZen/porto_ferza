@@ -202,7 +202,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl leading-relaxed font-medium"
               >
-                Front End Developer passionate about building efficient, beautiful, and user-friendly web applications. Computer Science graduate from UMM with a knack for crafting premium digital experiences.
+                Computer Science Graduate & Fullstack Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.
               </motion.p>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -291,10 +291,10 @@ export default function Home() {
                 className="prose prose-zinc dark:prose-invert max-w-none text-lg leading-relaxed text-zinc-600 dark:text-zinc-300 font-medium"
               >
                 <p className="mb-6">
-                  I'm a Computer Science graduate with hands-on experience in frontend development and system analysis. As a Front End Developer Intern at PT Bank NTB Syariah, I built critical systems that improved operational efficiency by 40%.
+                  I am a versatile developer with a foundation in Computer Science and a passion for solving complex problems through technology. My expertise spans the entire development lifecycle, from designing structured PostgreSQL schemas and building robust Laravel backends in the banking sector to crafting fluid, high-conversion user interfaces with Next.js and Framer Motion.
                 </p>
                 <p>
-                  My expertise spans Laravel, PostgreSQL, system analysis, and API integration. I excel at translating business requirements into scalable solutions while maintaining clear communication across teams.
+                  I thrive at the intersection of logic and creativity. Whether I'm optimizing internal banking workflows (improving efficiency by 40%), architecting fullstack SaaS platforms like **Kostify**, or diving into data-driven insights, my goal is always the same: to deliver scalable, secure, and visually stunning digital products that drive real business value.
                 </p>
               </motion.div>
 
@@ -635,8 +635,8 @@ export default function Home() {
                               key={idx}
                               onClick={() => setSelectedImageIndex(idx)}
                               className={`w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${idx === selectedImageIndex
-                                  ? "ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-zinc-950 scale-110"
-                                  : "opacity-50 hover:opacity-100"
+                                ? "ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-zinc-950 scale-110"
+                                : "opacity-50 hover:opacity-100"
                                 }`}
                             >
                               <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
