@@ -6,6 +6,24 @@ import { useState } from "react";
 
 const projects = [
   {
+    title: "Kostify: Smart Boarding House System",
+    description: "SaaS platform transforming boarding house management. Features a premium marketplace for tenants and a comprehensive business dashboard for owners.",
+    tech: ["Next.js 15+", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Supabase", "PostgreSQL"],
+    images: ["/kosthome.png", "/admindash.png", "/memberdash.png", "/kostlogin.png"],
+    link: "https://kostify-ferza.vercel.app/",
+    features: [
+      "Intelligent property search & filtering",
+      "Dynamic room selection with facilities & pricing",
+      "Real-time business analytics for owners",
+      "Dynamic discount & promotion engine",
+      "Secure Role-Based Access Control (RLS)"
+    ],
+    credentials: [
+      { label: "Member Account", email: "kael@ryu.com", pass: "12345678" },
+      { label: "Super Admin", email: "ferza@gmail.com", pass: "zidan100303" }
+    ]
+  },
+  {
     title: "Data Access Form System",
     description: "Internal banking system built with Laravel and PostgreSQL, reducing manual processing time by 40%",
     tech: ["Laravel", "PostgreSQL", "PHP", "API Integration"],
@@ -569,78 +587,130 @@ export default function Home() {
 
             {/* Modal Content */}
             <div className="flex-1 overflow-auto p-8 bg-zinc-50/30 dark:bg-[#0a0a0a]">
-              {projects[selectedProject].images.length > 0 ? (
-                <div className="max-w-4xl mx-auto">
-                  <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-8 bg-black">
-                    <img
-                      src={projects[selectedProject].images[selectedImageIndex]}
-                      alt={`${projects[selectedProject].title} - Image ${selectedImageIndex + 1}`}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+              <div className="max-w-4xl mx-auto space-y-12">
+                {/* Image Gallery */}
+                <div>
+                  {projects[selectedProject].images.length > 0 ? (
+                    <>
+                      <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-8 bg-black shadow-lg">
+                        <img
+                          src={projects[selectedProject].images[selectedImageIndex]}
+                          alt={`${projects[selectedProject].title} - Image ${selectedImageIndex + 1}`}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
 
-                  {/* Image Navigation & Thumbnails */}
-                  <div className="flex flex-col items-center gap-8">
-                    {projects[selectedProject].images.length > 1 && (
-                      <div className="flex gap-4 items-center">
-                        <button
-                          onClick={() =>
-                            setSelectedImageIndex((prev) =>
-                              prev === 0
-                                ? projects[selectedProject].images.length - 1
-                                : prev - 1
-                            )
-                          }
-                          className="px-6 py-2.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors font-semibold text-sm"
-                        >
-                          ← Prev
-                        </button>
-                        <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 min-w-[3rem] text-center">
-                          {selectedImageIndex + 1} / {projects[selectedProject].images.length}
-                        </span>
-                        <button
-                          onClick={() =>
-                            setSelectedImageIndex((prev) =>
-                              prev === projects[selectedProject].images.length - 1
-                                ? 0
-                                : prev + 1
-                            )
-                          }
-                          className="px-6 py-2.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors font-semibold text-sm"
-                        >
-                          Next →
-                        </button>
+                      <div className="flex flex-col items-center gap-8">
+                        {projects[selectedProject].images.length > 1 && (
+                          <div className="flex gap-4 items-center">
+                            <button
+                              onClick={() =>
+                                setSelectedImageIndex((prev) =>
+                                  prev === 0 ? projects[selectedProject].images.length - 1 : prev - 1
+                                )
+                              }
+                              className="px-6 py-2.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors font-semibold text-sm"
+                            >
+                              ← Prev
+                            </button>
+                            <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 min-w-[3rem] text-center">
+                              {selectedImageIndex + 1} / {projects[selectedProject].images.length}
+                            </span>
+                            <button
+                              onClick={() =>
+                                setSelectedImageIndex((prev) =>
+                                  prev === projects[selectedProject].images.length - 1 ? 0 : prev + 1
+                                )
+                              }
+                              className="px-6 py-2.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors font-semibold text-sm"
+                            >
+                              Next →
+                            </button>
+                          </div>
+                        )}
+
+                        <div className="flex gap-3 flex-wrap justify-center max-w-3xl">
+                          {projects[selectedProject].images.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setSelectedImageIndex(idx)}
+                              className={`w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${idx === selectedImageIndex
+                                  ? "ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-zinc-950 scale-110"
+                                  : "opacity-50 hover:opacity-100"
+                                }`}
+                            >
+                              <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="h-64 flex items-center justify-center">
+                      <p className="text-zinc-500 dark:text-zinc-400 text-lg font-medium">No images available.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Project Details */}
+                <div className="grid md:grid-cols-3 gap-8 pt-8 border-t border-zinc-100 dark:border-zinc-900">
+                  <div className="md:col-span-2 space-y-8">
+                    <div>
+                      <h4 className="text-lg font-bold mb-4 text-emerald-600 dark:text-emerald-400">About the Project</h4>
+                      <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed font-medium">
+                        {projects[selectedProject].description}
+                      </p>
+                    </div>
+
+                    {(projects[selectedProject] as any).features && (
+                      <div>
+                        <h4 className="text-lg font-bold mb-4 text-emerald-600 dark:text-emerald-400">Key Features</h4>
+                        <ul className="grid sm:grid-cols-2 gap-3">
+                          {(projects[selectedProject] as any).features.map((feature: string, idx: number) => (
+                            <li key={idx} className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400 font-medium">
+                              <span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
+                  </div>
 
-                    {/* Thumbnails */}
-                    <div className="flex gap-3 flex-wrap justify-center max-w-3xl">
-                      {projects[selectedProject].images.map((img, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedImageIndex(idx)}
-                          className={`w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${idx === selectedImageIndex
-                            ? "ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-zinc-950 scale-110"
-                            : "opacity-50 hover:opacity-100"
-                            }`}
-                        >
-                          <img
-                            src={img}
-                            alt={`Thumbnail ${idx + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                        </button>
-                      ))}
+                  <div className="space-y-8">
+                    <div>
+                      <h4 className="text-lg font-bold mb-4 text-emerald-600 dark:text-emerald-400">Tech Stack</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[selectedProject].tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs px-3 py-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-bold border border-zinc-200 dark:border-zinc-700"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+
+                    {(projects[selectedProject] as any).credentials && (
+                      <div className="p-6 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+                        <h4 className="text-lg font-bold mb-4 text-emerald-600 dark:text-emerald-400">Try it Live</h4>
+                        <div className="space-y-4">
+                          {(projects[selectedProject] as any).credentials.map((cred: any, idx: number) => (
+                            <div key={idx} className="space-y-1">
+                              <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">{cred.label}</p>
+                              <div className="text-sm font-semibold text-zinc-700 dark:text-zinc-200">
+                                <p>Email: <span className="text-emerald-600 dark:text-emerald-400">{cred.email}</span></p>
+                                <p>Pass: <span className="text-emerald-600 dark:text-emerald-400">{cred.pass}</span></p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ) : (
-                <div className="h-full flex items-center justify-center">
-                  <p className="text-zinc-500 dark:text-zinc-400 text-lg font-medium">
-                    No images available for this project.
-                  </p>
-                </div>
-              )}
+              </div>
             </div>
           </motion.div>
         </motion.div>

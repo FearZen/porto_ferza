@@ -52,6 +52,9 @@ const cvData = {
   ],
   skills: {
     technical: [
+      "Next.js 15+",
+      "TypeScript",
+      "Tailwind CSS 4",
       "Laravel",
       "PHP",
       "PostgreSQL",
@@ -61,6 +64,8 @@ const cvData = {
       "Software Documentation",
       "Git",
       "Figma",
+      "Framer Motion",
+      "Supabase",
       "Data Preprocessing",
       "Machine Learning Fundamentals",
     ],
