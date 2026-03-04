@@ -4,13 +4,13 @@ import { motion, Variants } from "framer-motion";
 
 const cvData = {
   name: "Fernanda Wawang Azraqi",
-  title: "Computer Science Graduate | Fullstack Developer",
+  title: "Front end developer | UI/UX designer",
   location: "Surabaya, Indonesia",
   email: "fernandaazra@gmail.com",
   phone: "+62 821-3109-1937",
   linkedin: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/",
   cv: "https://drive.google.com/file/d/1IzwfT_t0eu0QlHdP7JbSd0VqgQQwUbH8/view?usp=sharing",
-  profileImage: "/profile.jpg", // Using the same premium photo
+  profileImage: "/foto_kotak_ferza.png", // Using the squared version for CV
   profile:
     "A versatile Computer Science graduate and Fullstack Developer with a strong foundation in both enterprise-level infrastructure and modern web development. With hands-on experience in the banking sector (Laravel/PostgreSQL) and the latest SaaS technologies (Next.js/Supabase), I specialize in building robust, data-driven solutions that balance technical efficiency with premium user experiences.",
   education: [
@@ -98,12 +98,12 @@ const itemVariants: Variants = {
 
 export default function CVPage() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-emerald-500/30 selection:text-emerald-900 dark:selection:text-emerald-100">
+    <div className="min-h-screen text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-cyan-500/30">
 
       {/* Background ambient light effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-emerald-500/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-teal-500/10 blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-500/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-pastel-cyan/10 blur-[120px]" />
       </div>
 
       {/* Navigation */}
@@ -120,7 +120,7 @@ export default function CVPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl sm:text-2xl font-bold tracking-tight text-center sm:text-left"
           >
-            Curriculum <span className="text-emerald-500">Vitae</span>
+            Curriculum <span className="text-cyan-600 dark:text-cyan-400">Vitae</span>
           </motion.h1>
           <motion.div
             initial={{ opacity: 0 }}
@@ -135,7 +135,7 @@ export default function CVPage() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 dark:hover:text-emerald-400 transition-colors"
+                className="text-sm font-medium text-zinc-600 hover:text-cyan-600 dark:text-zinc-400 dark:hover:text-cyan-400 transition-colors"
               >
                 <motion.span
                   whileHover={{ scale: 1.05 }}
@@ -151,7 +151,7 @@ export default function CVPage() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-md text-sm font-semibold transition-colors shadow-sm shadow-emerald-500/20"
+              className="px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-md text-sm font-semibold transition-colors shadow-sm shadow-cyan-500/20"
             >
               📄 PDF View
             </motion.a>
@@ -167,6 +167,26 @@ export default function CVPage() {
           transition={{ duration: 0.8 }}
           className="mb-20 pb-16 border-b border-zinc-200/50 dark:border-zinc-800/50"
         >
+          {/* Back Button */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-8"
+          >
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 text-zinc-500 hover:text-cyan-500 font-semibold transition-colors group"
+            >
+              <div className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-900 group-hover:bg-cyan-500/10 transition-colors">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </div>
+              Kembali Ke Beranda
+            </a>
+          </motion.div>
+
           <div className="flex flex-col md:flex-row gap-12 items-center md:items-start text-center md:text-left">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -175,7 +195,7 @@ export default function CVPage() {
               className="shrink-0"
             >
               <div className="relative w-48 h-48 sm:w-56 sm:h-56">
-                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-[2rem] blur-xl opacity-40 animate-pulse"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-pastel-cyan rounded-[2rem] blur-xl opacity-40 animate-pulse"></div>
                 <div className="relative w-full h-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-zinc-100 dark:bg-zinc-900">
                   <img
                     src={cvData.profileImage}
@@ -195,13 +215,13 @@ export default function CVPage() {
               <h1 className="text-4xl sm:text-5xl font-extrabold mb-2 tracking-tight">
                 {cvData.name}
               </h1>
-              <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent mb-6 inline-block">
+              <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-600 to-cyan-400 bg-clip-text text-transparent mb-6 inline-block">
                 {cvData.title}
               </p>
 
               <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center md:justify-start text-zinc-600 dark:text-zinc-400 font-medium mb-8">
                 <span className="flex items-center gap-2">📍 {cvData.location}</span>
-                <a href={`mailto:${cvData.email}`} className="flex items-center gap-2 hover:text-emerald-500 transition-colors">✉️ {cvData.email}</a>
+                <a href={`mailto:${cvData.email}`} className="flex items-center gap-2 hover:text-cyan-600 transition-colors">✉️ {cvData.email}</a>
                 <span className="flex items-center gap-2">📱 {cvData.phone}</span>
               </div>
 
@@ -214,7 +234,7 @@ export default function CVPage() {
                   href={cvData.cv}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/25 hover:-translate-y-1"
+                  className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-xl font-semibold transition-all shadow-lg shadow-cyan-500/25 hover:-translate-y-1"
                 >
                   Download Full CV
                 </a>
@@ -222,7 +242,7 @@ export default function CVPage() {
                   href={cvData.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 border-2 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 rounded-xl font-semibold transition-all hover:-translate-y-1"
+                  className="px-6 py-3 border-2 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-xl font-semibold transition-all hover:-translate-y-1"
                 >
                   LinkedIn Profile
                 </a>
@@ -241,13 +261,13 @@ export default function CVPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl font-bold tracking-tight mb-8 text-emerald-500">
+              <h2 className="text-2xl font-bold tracking-tight mb-8 text-cyan-600 dark:text-cyan-400">
                 Experience
               </h2>
               <div className="space-y-12">
                 {cvData.experience.map((exp, idx) => (
                   <div key={idx} className="relative pl-6 sm:pl-8 border-l-2 border-zinc-200 dark:border-zinc-800">
-                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-emerald-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
+                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-cyan-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
                     <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
                       <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
                         {exp.position}
@@ -256,13 +276,13 @@ export default function CVPage() {
                         {exp.period}
                       </span>
                     </div>
-                    <p className="text-lg font-medium text-emerald-600 dark:text-emerald-400 mb-4">
+                    <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
                       {exp.company} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {exp.location}</span>
                     </p>
                     <ul className="space-y-3">
                       {exp.achievements.map((achievement, i) => (
                         <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                          <span className="text-emerald-500 font-bold shrink-0 mt-0.5">▪</span>
+                          <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
                           <span>{achievement}</span>
                         </li>
                       ))}
@@ -279,13 +299,13 @@ export default function CVPage() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl font-bold tracking-tight mb-8 text-emerald-500">
+              <h2 className="text-2xl font-bold tracking-tight mb-8 text-cyan-500">
                 Organizations
               </h2>
               <div className="space-y-12">
                 {cvData.organizations.map((org, idx) => (
                   <div key={idx} className="relative pl-6 sm:pl-8 border-l-2 border-zinc-200 dark:border-zinc-800">
-                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-emerald-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
+                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-cyan-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
                     <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
                       <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
                         {org.position}
@@ -294,13 +314,13 @@ export default function CVPage() {
                         {org.period}
                       </span>
                     </div>
-                    <p className="text-lg font-medium text-emerald-600 dark:text-emerald-400 mb-4">
+                    <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
                       {org.org} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {org.location}</span>
                     </p>
                     <ul className="space-y-3">
                       {org.achievements.map((achievement, i) => (
                         <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                          <span className="text-emerald-500 font-bold shrink-0 mt-0.5">▪</span>
+                          <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
                           <span>{achievement}</span>
                         </li>
                       ))}
@@ -326,7 +346,7 @@ export default function CVPage() {
               <div className="space-y-8">
                 {cvData.education.map((edu, idx) => (
                   <div key={idx}>
-                    <h3 className="text-lg font-bold text-emerald-500 mb-1">
+                    <h3 className="text-lg font-bold text-cyan-600 dark:text-cyan-400 mb-1">
                       {edu.degree}
                     </h3>
                     <p className="font-semibold text-zinc-900 dark:text-zinc-200 mb-1">{edu.school}</p>
@@ -353,7 +373,7 @@ export default function CVPage() {
                 {cvData.skills.technical.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-emerald-500/50 transition-colors cursor-default"
+                    className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-cyan-500/50 transition-colors cursor-default"
                   >
                     {skill}
                   </span>
@@ -374,7 +394,7 @@ export default function CVPage() {
               <ul className="space-y-3">
                 {cvData.skills.languages.map((lang, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-zinc-700 dark:text-zinc-300 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0" />
                     {lang}
                   </li>
                 ))}
