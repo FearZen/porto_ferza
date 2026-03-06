@@ -7,6 +7,18 @@ import * as Icons from "lucide-react";
 
 const projects = [
   {
+    title: "SewaNusa: Premium Car Rental Platform",
+    slug: "sewanusa",
+    description: "High-end car rental platform in Indonesia with a 'Premium Pastel' aesthetic. Features real-time stats, fleet CRUD, and a seamless booking experience for luxury travel.",
+    tech: ["Next.js 15+", "TypeScript", "Tailwind CSS", "Framer Motion", "Supabase-ready"],
+    images: ["/homesn.png", "/homesn1.png", "/homesn2.png", "/homesn3.png", "/homesn4.png", "/luxury.png", "/userdashsn.png", "/admindash1sn.png", "/admindash2sn.png", "/admindash3sn.png", "/admindash4sn.png"],
+    link: "https://sewanusa.vercel.app/",
+    credentials: [
+      { label: "Admin Access", email: "admin@sewanusa.id", pass: "admin123" },
+      { label: "User Access", email: "ferna@example.com", pass: "admin123" }
+    ],
+  },
+  {
     title: "Kostify: Smart Boarding House System",
     slug: "kostify",
     description: "SaaS platform transforming boarding house management. Features a premium marketplace for tenants and a comprehensive business dashboard for owners.",
@@ -28,7 +40,7 @@ const projects = [
   {
     title: "Data Access Form System",
     slug: "data-access-form",
-    description: "Internal banking system built with Laravel and PostgreSQL, reducing manual processing time by 40%",
+    description: "High-security internal banking platform that revolutionizes data access workflows. Replaces manual paper-based processes with automated multi-level approvals.",
     tech: ["Laravel", "PostgreSQL", "PHP", "API Integration"],
     images: ["/bank1.png", "/bank2.png", "/bank3.png", "/bank4.png", "/bank5.png", "/bank6.png", "/bank7.png", "/bank8.png", "/bank9.png", "/bank10.png", "/bank11.png", "/bank12.png", "/bank13.png", "/bank14.png", "/bank15.png", "/bankmobile.png"],
     link: "#",
@@ -36,7 +48,7 @@ const projects = [
   {
     title: "Design & Branding",
     slug: "design-branding",
-    description: "Digital design projects including UI/UX and content design using Figma",
+    description: "Curated collection of high-fidelity UI/UX designs and brand identities. Focuses on creating visually stunning, user-centric interfaces in Figma.",
     tech: ["Figma", "UI/UX", "Digital Design", "Adobe Suite"],
     images: ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"],
     link: "#",
@@ -118,6 +130,7 @@ export default function Home() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  const [zoomImage, setZoomImage] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-cyan-500/30">
@@ -261,7 +274,7 @@ export default function Home() {
             >
               <div className="relative group">
                 {/* Decorative border glow */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-pastel-cyan rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-pastel-cyan rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
 
                 {/* Main Hero Background - NEW heros.png */}
                 <div className="absolute -top-12 -right-12 w-full h-full bg-pastel-cyan/5 rounded-full blur-[100px] pointer-events-none" />
@@ -593,7 +606,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-2 px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-full text-sm font-semibold transition-colors shadow-sm shadow-cyan-500/20"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-xl text-sm font-bold transition-colors shadow-sm shadow-cyan-500/20"
                   >
                     <span>Visit Live Site</span>
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -618,12 +631,18 @@ export default function Home() {
                 <div>
                   {projects[selectedProject].images.length > 0 ? (
                     <>
-                      <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-8 bg-black shadow-lg">
+                      <div
+                        className="relative aspect-video w-full rounded-xl overflow-hidden mb-8 bg-black shadow-lg cursor-zoom-in group"
+                        onClick={() => setZoomImage(projects[selectedProject].images[selectedImageIndex])}
+                      >
                         <img
                           src={projects[selectedProject].images[selectedImageIndex]}
                           alt={`${projects[selectedProject].title} - Image ${selectedImageIndex + 1}`}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-500"
                         />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <Icons.ZoomIn className="text-white" size={32} />
+                        </div>
                       </div>
 
                       <div className="flex flex-col items-center gap-8">
@@ -741,6 +760,38 @@ export default function Home() {
           </motion.div>
         </motion.div>
       )}
+      {/* Image Zoom Modal */}
+      <AnimatePresence>
+        {zoomImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomImage(null)}
+            className="fixed inset-0 z-[150] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-7xl w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={zoomImage}
+                alt="Zoomed view"
+                className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+              />
+              <button
+                onClick={() => setZoomImage(null)}
+                className="absolute top-0 right-0 m-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/20 backdrop-blur-md"
+              >
+                <Icons.X size={24} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
