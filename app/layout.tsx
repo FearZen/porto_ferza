@@ -20,8 +20,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Ferna",
-  description: "Full-stack developer portfolio showcasing my projects and skills",
+  title: "Portfolio | Ferza",
+  description: "Front End developer portfolio showcasing my projects and skills",
 };
 
 export default function RootLayout({
