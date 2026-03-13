@@ -100,16 +100,16 @@ const currentlyWorking = [
 ];
 
 const skills = [
+  { name: "Next.js", icon: "Zap", color: "text-zinc-100" },
+  { name: "TypeScript", icon: "Code2", color: "text-blue-500" },
+  { name: "Tailwind", icon: "Palette", color: "text-cyan-400" },
+  { name: "Framer Motion", icon: "Cpu", color: "text-purple-500" },
   { name: "Laravel", icon: "Code2", color: "text-red-500" },
-  { name: "PHP", icon: "FileCode", color: "text-blue-400" },
+  { name: "Supabase", icon: "Database", color: "text-emerald-500" },
   { name: "PostgreSQL", icon: "Database", color: "text-blue-500" },
-  { name: "MySQL", icon: "Database", color: "text-orange-500" },
-  { name: "API Integration", icon: "Webhook", color: "text-emerald-500" },
-  { name: "System Analysis", icon: "SearchCode", color: "text-purple-500" },
   { name: "Figma", icon: "Figma", color: "text-pink-500" },
   { name: "Git", icon: "GitBranch", color: "text-orange-600" },
-  { name: "Next.js", icon: "Zap", color: "text-zinc-100" },
-  { name: "Tailwind", icon: "Palette", color: "text-cyan-400" },
+  { name: "ML Fundamentals", icon: "Brain", color: "text-amber-500" },
 ];
 
 const containerVariants: Variants = {

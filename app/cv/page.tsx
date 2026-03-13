@@ -9,7 +9,7 @@ const cvData = {
   email: "fernandaazra@gmail.com",
   phone: "+62 821-3109-1937",
   linkedin: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/",
-  cv: "https://drive.google.com/file/d/1IzwfT_t0eu0QlHdP7JbSd0VqgQQwUbH8/view?usp=sharing",
+  cv: "https://drive.google.com/drive/folders/1l_rPw60Tl9BDfM40YPsfcbjP24jiwCrV?usp=sharing",
   profileImage: "/foto_kotak_ferza.png", // Using the squared version for CV
   profile:
     "A versatile Computer Science graduate and Fullstack Developer with a strong foundation in both enterprise-level infrastructure and modern web development. With hands-on experience in the banking sector (Laravel/PostgreSQL) and the latest SaaS technologies (Next.js/Supabase), I specialize in building robust, data-driven solutions that balance technical efficiency with premium user experiences.",
@@ -23,6 +23,19 @@ const cvData = {
     },
   ],
   experience: [
+    {
+      company: "PT Digital Inteligensi Nusantara",
+      location: "Indonesia",
+      position: "Front End Developer Intern",
+      period: "Jan 2026 – Present",
+      achievements: [
+        "Designed and improved user interface components for web applications, contributing to a more intuitive and user-friendly product experience.",
+        "Created wireframes and UI mockups using Figma to support the development of new product features and improve existing layouts.",
+        "Collaborated with developers to ensure accurate frontend implementation of design specifications.",
+        "Assisted in optimizing interface layouts and user flows, helping improve usability and efficiency of the digital product.",
+        "Supported the development team in delivering web-based product features within project timelines.",
+      ],
+    },
     {
       company: "PT Bank NTB Syariah",
       location: "Mataram",
@@ -52,22 +65,30 @@ const cvData = {
   ],
   skills: {
     technical: [
-      "Next.js 15+",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "Laravel",
-      "PHP",
-      "PostgreSQL",
-      "MySQL",
-      "API Integration",
-      "System Analysis",
-      "Software Documentation",
-      "Git",
-      "Figma",
-      "Framer Motion",
-      "Supabase",
-      "Data Preprocessing",
-      "Machine Learning Fundamentals",
+      {
+        category: "Frontend Development",
+        items: ["Next.js 15+", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      },
+      {
+        category: "Backend Development",
+        items: ["Laravel", "PHP", "REST API Integration"],
+      },
+      {
+        category: "Database",
+        items: ["PostgreSQL", "MySQL", "Supabase"],
+      },
+      {
+        category: "Tools & Workflow",
+        items: ["Git", "Figma"],
+      },
+      {
+        category: "Software Engineering",
+        items: ["System Analysis", "Software Documentation"],
+      },
+      {
+        category: "Data & AI Fundamentals",
+        items: ["Data Preprocessing", "Machine Learning Fundamentals"],
+      },
     ],
     languages: ["Indonesian (Native)", "English (Intermediate)"],
   },
@@ -369,14 +390,23 @@ export default function CVPage() {
               <h2 className="text-xl font-bold tracking-tight mb-6 text-zinc-900 dark:text-white">
                 Skills & Tech
               </h2>
-              <div className="flex flex-wrap gap-2">
-                {cvData.skills.technical.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-cyan-500/50 transition-colors cursor-default"
-                  >
-                    {skill}
-                  </span>
+              <div className="space-y-6">
+                {(cvData.skills.technical as any[]).map((group) => (
+                  <div key={group.category}>
+                    <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-3">
+                      {group.category}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {group.items.map((skill: string) => (
+                        <span
+                          key={skill}
+                          className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-cyan-500/50 transition-colors cursor-default"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </motion.section>
