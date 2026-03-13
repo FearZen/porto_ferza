@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 
 const projectDetails = {
@@ -85,6 +86,22 @@ const projectDetails = {
         link: "#",
         tech: ["Figma", "UI/UX", "Digital Design", "Adobe Suite"],
         images: ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"]
+    },
+    "startup-idea-generator": {
+        title: "Generator Ide Startup: YC-Style Humorous AI Generator",
+        overview: "Generator Ide Startup is an interactive web application designed to help users find their next 'Unicorn' business idea instantly. While wrapped in humor and absurd elements, the application uses smart logic inspired by the mindset of world-class startup accelerators like Y Combinator.",
+        narrative: "Many startup idea generators out there just combine words randomly without context. This project solves that problem by architecting a Context-Aware Engine that ensures the Target User, Industry, and Problem faced have a logical link, so every idea that emerges feels 'makes sense' while remaining entertaining.",
+        features: [
+            "Context-Aware Generation: A smart engine that maps specific audiences to relevant industries and problems.",
+            "Thematic Naming System: Dynamic naming logic that adapts the startup brand to the chosen industry.",
+            "Interactive UX & Micro-Animations: Premium glassmorphism design with smooth animations using Framer Motion.",
+            "Categorized Scoring Engine: Automatically scores each idea, from 'Bad Idea' to 'Ready for Silicon Valley'.",
+            "Social & Copy Integration: Twitter/X sharing features and a clean copy-to-clipboard system.",
+            "Indonesian Localization: All content is curated in Indonesian to provide relevant and funny local context."
+        ],
+        link: "https://startup-idea-generator-ferza.vercel.app/",
+        tech: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lucide React"],
+        images: ["/GIS1.png", "/GIS2.png", "/GIS3.png", "/GIS4.png", "/GIS5.png"]
     }
 };
 
@@ -253,10 +270,13 @@ export default function ProjectPage() {
                                                 className="absolute inset-0 cursor-zoom-in"
                                                 onClick={() => setZoomImage(project.images[currentImageIndex])}
                                             >
-                                                <img
+                                                <Image
                                                     src={project.images[currentImageIndex]}
                                                     alt={`Gallery ${currentImageIndex}`}
+                                                    fill
                                                     className="w-full h-full object-cover"
+                                                    priority
+                                                    sizes="(max-width: 1280px) 100vw, 40vw"
                                                 />
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/carousel:opacity-100 transition-opacity flex items-center justify-center">
                                                     <div className="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
@@ -297,7 +317,7 @@ export default function ProjectPage() {
                                                     : "border-transparent opacity-40 hover:opacity-100"
                                                     }`}
                                             >
-                                                <img src={img} className="w-full h-full object-cover" alt={`Thumb ${i}`} />
+                                                <Image src={img} fill className="w-full h-full object-cover" alt={`Thumb ${i}`} sizes="100px" />
                                             </button>
                                         ))}
                                     </div>
@@ -325,9 +345,11 @@ export default function ProjectPage() {
                             className="relative max-w-7xl w-full h-full flex items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <img
+                            <Image
                                 src={zoomImage}
                                 alt="Zoomed view"
+                                width={1920}
+                                height={1080}
                                 className="max-w-full max-h-full object-contain rounded-3xl shadow-[0_0_80px_rgba(6,182,212,0.15)]"
                             />
                             <button

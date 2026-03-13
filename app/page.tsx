@@ -3,6 +3,7 @@
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 
 const projects = [
@@ -60,6 +61,14 @@ const projects = [
     tech: ["Next.js", "Data Analytics", "UI/UX Design"],
     images: ["/login.png", "/Dashboard.png", "/Revenue.png", "/Analytics.png", "/users.png", "/settings.png"],
     link: "https://growthly-saas.vercel.app/dashboard",
+  },
+  {
+    title: "Generator Ide Startup: YC-Style Humorous AI Generator",
+    slug: "startup-idea-generator",
+    description: "Interactive web app that helps users find their next 'Unicorn' business idea instantly. Built with a context-aware engine for logically consistent yet entertaining startup concepts.",
+    tech: ["Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lucide React"],
+    images: ["/GIS1.png", "/GIS2.png", "/GIS3.png", "/GIS4.png", "/GIS5.png"],
+    link: "https://startup-idea-generator-ferza.vercel.app/",
   },
 ];
 
@@ -281,10 +290,12 @@ export default function Home() {
 
                 <div className="relative flex flex-col items-center">
                   <div className="relative aspect-square w-full max-w-md rounded-full overflow-hidden border-8 border-white dark:border-zinc-900 shadow-2xl z-20">
-                    <img
+                    <Image
                       src="/foto_ferza.png"
                       alt="Fernanda Wawang Azraqi"
+                      fill
                       className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      priority
                     />
                   </div>
                 </div>
@@ -411,10 +422,12 @@ export default function Home() {
                 >
                   <div className="h-full p-8 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-500 shadow-sm hover:shadow-xl">
                     <div className="aspect-video w-full rounded-2xl overflow-hidden mb-8 relative bg-zinc-100 dark:bg-black">
-                      <img
+                      <Image
                         src={project.images[0]}
                         alt={project.title}
+                        fill
                         className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                     </div>
