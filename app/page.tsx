@@ -8,6 +8,58 @@ import * as Icons from "lucide-react";
 
 const projects = [
   {
+    title: "Desa Digital: Modern Village Administration System",
+    slug: "desa-digital",
+    description: "Premium, production-ready administrative platform transforming village governance. Streamlines complex bureaucratic processes into a seamless digital experience with robust backend functionality.",
+    tech: ["Laravel 12", "PHP 8.2+", "Tailwind CSS", "Alpine.js", "Vite"],
+    images: [
+      "/Screenshot 2026-03-14 202343.png",
+      "/Screenshot 2026-03-14 202356.png",
+      "/Screenshot 2026-03-14 202402.png",
+      "/Screenshot 2026-03-14 202411.png",
+      "/Screenshot 2026-03-14 202415.png",
+      "/Screenshot 2026-03-14 202428.png",
+      "/Screenshot 2026-03-14 202436.png",
+      "/Screenshot 2026-03-14 202445.png",
+      "/Screenshot 2026-03-14 202743.png",
+      "/Screenshot 2026-03-14 202748.png",
+      "/Screenshot 2026-03-14 202802.png",
+      "/Screenshot 2026-03-14 202808.png",
+      "/Screenshot 2026-03-14 202821.png",
+      "/Screenshot 2026-03-14 202845.png",
+      "/Screenshot 2026-03-14 202849.png",
+      "/Screenshot 2026-03-14 202903.png",
+      "/Screenshot 2026-03-14 202920.png",
+      "/Screenshot 2026-03-14 202927.png",
+      "/Screenshot 2026-03-14 202942.png",
+      "/Screenshot 2026-03-14 202951.png",
+      "/Screenshot 2026-03-14 203006.png",
+      "/Screenshot 2026-03-14 203020.png",
+      "/Screenshot 2026-03-14 203114.png",
+      "/Screenshot 2026-03-14 203120.png",
+      "/Screenshot 2026-03-14 203131.png",
+      "/Screenshot 2026-03-14 203137.png",
+      "/Screenshot 2026-03-14 203151.png",
+      "/Screenshot 2026-03-14 203205.png",
+      "/Screenshot 2026-03-14 203212.png",
+      "/Screenshot 2026-03-14 203228.png",
+      "/Screenshot 2026-03-14 203234.png"
+    ],
+    link: "https://surat-desa-production.up.railway.app/",
+    features: [
+      "Interactive dashboard providing instant insights into village metrics",
+      "Centralized, secure engine for managing resident information",
+      "Automated official letter generation with dynamic templates",
+      "Unified tracking and digital archiving of issued letters",
+      "Full support for Dark and Light modes",
+      "Comprehensive audit trails for administrative actions"
+    ],
+    credentials: [
+      { label: "Admin Access", email: "admin@desa.id", pass: "password" },
+      { label: "Petugas Access", email: "petugas@desa.id", pass: "password" }
+    ],
+  },
+  {
     title: "SewaNusa: Premium Car Rental Platform",
     slug: "sewanusa",
     description: "High-end car rental platform in Indonesia with a 'Premium Pastel' aesthetic. Features real-time stats, fleet CRUD, and a seamless booking experience for luxury travel.",

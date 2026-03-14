@@ -8,6 +8,58 @@ import Image from "next/image";
 import * as Icons from "lucide-react";
 
 const projectDetails = {
+    "desa-digital": {
+        title: "Desa Digital: Modern Village Administration System",
+        overview: "Desa Digital is a premium, production-ready administrative platform designed to transform village governance in Indonesia. It streamlines complex bureaucratic processes into a seamless digital experience, combining high-end 'glassmorphism' aesthetics with robust backend functionality.",
+        narrative: "The project focuses on digitizing essential village services, from resident data management to automated letter generation. By implementing a modern UI system and a secure role-based access control, Desa Digital ensures efficiency for administrators and high-quality service for citizens.",
+        features: [
+            "Real-time Analytics: Interactive dashboard providing instant insights into village population metrics and administrative activity.",
+            "Integrated Resident Database: A centralized, secure engine for managing resident information with advanced search and filtering.",
+            "Automated Letter Generation: Instant creation of official village documents (SK Domisili, SK Kelahiran, etc.) using dynamic templates.",
+            "Digital Archiving: Unified tracking and management of issued letters for improved accountability and transparency.",
+            "Global Theme System: Full support for Dark and Light modes with persistent user preferences and system detection.",
+            "Advanced Activity Logging: Comprehensive audit trails for administrative actions to ensure system security."
+        ],
+        credentials: [
+            { label: "Admin Access", email: "admin@desa.id", pass: "password" },
+            { label: "Petugas Access", email: "petugas@desa.id", pass: "password" }
+        ],
+        link: "https://surat-desa-production.up.railway.app/",
+        tech: ["Laravel 11", "PHP 8.2+", "Tailwind CSS", "Alpine.js", "Vite"],
+        images: [
+            "/Screenshot 2026-03-14 202343.png",
+            "/Screenshot 2026-03-14 202356.png",
+            "/Screenshot 2026-03-14 202402.png",
+            "/Screenshot 2026-03-14 202411.png",
+            "/Screenshot 2026-03-14 202415.png",
+            "/Screenshot 2026-03-14 202428.png",
+            "/Screenshot 2026-03-14 202436.png",
+            "/Screenshot 2026-03-14 202445.png",
+            "/Screenshot 2026-03-14 202743.png",
+            "/Screenshot 2026-03-14 202748.png",
+            "/Screenshot 2026-03-14 202802.png",
+            "/Screenshot 2026-03-14 202808.png",
+            "/Screenshot 2026-03-14 202821.png",
+            "/Screenshot 2026-03-14 202845.png",
+            "/Screenshot 2026-03-14 202849.png",
+            "/Screenshot 2026-03-14 202903.png",
+            "/Screenshot 2026-03-14 202920.png",
+            "/Screenshot 2026-03-14 202927.png",
+            "/Screenshot 2026-03-14 202942.png",
+            "/Screenshot 2026-03-14 202951.png",
+            "/Screenshot 2026-03-14 203006.png",
+            "/Screenshot 2026-03-14 203020.png",
+            "/Screenshot 2026-03-14 203114.png",
+            "/Screenshot 2026-03-14 203120.png",
+            "/Screenshot 2026-03-14 203131.png",
+            "/Screenshot 2026-03-14 203137.png",
+            "/Screenshot 2026-03-14 203151.png",
+            "/Screenshot 2026-03-14 203205.png",
+            "/Screenshot 2026-03-14 203212.png",
+            "/Screenshot 2026-03-14 203228.png",
+            "/Screenshot 2026-03-14 203234.png"
+        ]
+    },
     "sewanusa": {
         title: "SewaNusa: Premium Car Rental Platform",
         overview: "SewaNusa is a high-end, production-ready web application designed for premium car rental services in Indonesia. It provides a seamless experience for both customers and administrators, combining stunning 'premium pastel' aesthetics with robust functionality.",
