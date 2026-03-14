@@ -154,6 +154,22 @@ const projectDetails = {
         link: "https://startup-idea-generator-ferza.vercel.app/",
         tech: ["Next.js 16", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lucide React"],
         images: ["/GIS1.png", "/GIS2.png", "/GIS3.png", "/GIS4.png", "/GIS5.png"]
+    },
+    "dev-roast": {
+        title: "DevRoast — AI Portfolio & CV Reviewer for Developers",
+        overview: "DevRoast is a premium, AI-powered portfolio review platform designed to provide honest, humorous (roasts), yet educational feedback for developers. It transforms the often tedious process of portfolio review into an interactive and entertaining experience, blending high-end 'glassmorphism' aesthetics with the power of state-of-the-art LLMs via Groq.",
+        narrative: "The project focuses on giving developers a unique perspective on how their work is perceived by the public and recruiters. With a futuristic UI and a sharp AI engine, DevRoast ensures every developer receives memorable feedback to elevate their personal branding and technical presentation.",
+        features: [
+            "Multi-Source Analysis: Seamless analysis through Website Portfolio URLs, PDF CV uploads, and Google Drive links with automatic text extraction.",
+            "Triple Roast Modes: Friendly (casual support), Recruiter (sharp professional standards), and Brutal (honest no-nonsense feedback).",
+            "Premium Design System: 'Ultra Dark' interface featuring high-end glassmorphism (backdrop-blur-3xl), dynamic noise & dot grid backgrounds.",
+            "Intelligent PDF Parser: A robust backend engine built to extract text from various PDF CV layouts accurately for AI analysis.",
+            "Localized Intelligence: Specifically optimized for Indonesian developers with culturally relevant humor and sharp professional advice.",
+            "Social Sharing Integration: One-click functionality to copy review results or share them directly to X (Twitter)."
+        ],
+        link: "https://dev-roast-ferza.vercel.app/",
+        tech: ["Next.js 16+", "TypeScript", "Tailwind CSS", "Framer Motion", "Groq AI (Llama 3.3)"],
+        images: ["/devroast1.png", "/devroast2.png", "/devroast3.png", "/devroast4.png"]
     }
 };
 
@@ -173,6 +189,28 @@ export default function ProjectPage() {
     const prevImage = () => {
         setCurrentImageIndex((prev: number) => (prev - 1 + project.images.length) % project.images.length);
     };
+
+    // Keyboard navigation for zoom modal
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!zoomImage) return;
+
+            if (e.key === "ArrowRight") {
+                const nextIdx = (currentImageIndex + 1) % project.images.length;
+                setCurrentImageIndex(nextIdx);
+                setZoomImage(project.images[nextIdx]);
+            } else if (e.key === "ArrowLeft") {
+                const prevIdx = (currentImageIndex - 1 + project.images.length) % project.images.length;
+                setCurrentImageIndex(prevIdx);
+                setZoomImage(project.images[prevIdx]);
+            } else if (e.key === "Escape") {
+                setZoomImage(null);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [zoomImage, currentImageIndex, project.images]);
 
     return (
         <div className="min-h-screen bg-white dark:bg-[#050505] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-cyan-500/30">
@@ -404,6 +442,41 @@ export default function ProjectPage() {
                                 height={1080}
                                 className="max-w-full max-h-full object-contain rounded-3xl shadow-[0_0_80px_rgba(6,182,212,0.15)]"
                             />
+
+                            {/* Navigation Controls */}
+                            {project.images.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            const prevIdx = (currentImageIndex - 1 + project.images.length) % project.images.length;
+                                            setCurrentImageIndex(prevIdx);
+                                            setZoomImage(project.images[prevIdx]);
+                                        }}
+                                        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10 backdrop-blur-md group"
+                                        aria-label="Previous image"
+                                    >
+                                        <Icons.ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform" />
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            const nextIdx = (currentImageIndex + 1) % project.images.length;
+                                            setCurrentImageIndex(nextIdx);
+                                            setZoomImage(project.images[nextIdx]);
+                                        }}
+                                        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/10 backdrop-blur-md group"
+                                        aria-label="Next image"
+                                    >
+                                        <Icons.ChevronRight size={32} className="group-hover:translate-x-1 transition-transform" />
+                                    </button>
+
+                                    <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 px-8 py-3 rounded-full bg-white/10 border border-white/10 backdrop-blur-md text-white font-black text-[10px] tracking-[0.3em] uppercase">
+                                        {currentImageIndex + 1} / {project.images.length}
+                                    </div>
+                                </>
+                            )}
+
                             <button
                                 onClick={() => setZoomImage(null)}
                                 className="absolute top-0 right-0 m-8 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/10 backdrop-blur-md"

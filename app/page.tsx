@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import PhotoStack from "@/components/PhotoStack";
 
 const projects = [
   {
@@ -130,6 +131,15 @@ const projects = [
     images: ["/GIS1.png", "/GIS2.png", "/GIS3.png", "/GIS4.png", "/GIS5.png"],
     link: "https://startup-idea-generator-ferza.vercel.app/",
   },
+  {
+    title: "DevRoast — AI Portfolio & CV Reviewer for Developers",
+    slug: "dev-roast",
+    category: "Web App",
+    description: "Premium AI-powered portfolio review platform providing honest, humorous, and educational feedback. Features triple roast modes and intelligent PDF parsing.",
+    tech: ["Next.js 16+", "TypeScript", "Tailwind CSS", "Framer Motion", "Groq AI"],
+    images: ["/devroast1.png", "/devroast2.png", "/devroast3.png", "/devroast4.png"],
+    link: "https://dev-roast-ferza.vercel.app/",
+  },
 ];
 
 const currentlyWorking = [
@@ -202,6 +212,38 @@ export default function Home() {
   const [zoomImage, setZoomImage] = useState<string | null>(null);
   const [filter, setFilter] = useState("All");
   const [showContactForm, setShowContactForm] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = (clientX - left) / width;
+    const y = (clientY - top) / height;
+    setMousePosition({ x, y });
+  };
+
+  // Keyboard navigation for zoom modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!zoomImage || selectedProject === null) return;
+
+      const projectImages = projects[selectedProject].images;
+      if (e.key === "ArrowRight") {
+        const nextIdx = (selectedImageIndex + 1) % projectImages.length;
+        setSelectedImageIndex(nextIdx);
+        setZoomImage(projectImages[nextIdx]);
+      } else if (e.key === "ArrowLeft") {
+        const prevIdx = (selectedImageIndex - 1 + projectImages.length) % projectImages.length;
+        setSelectedImageIndex(prevIdx);
+        setZoomImage(projectImages[prevIdx]);
+      } else if (e.key === "Escape") {
+        setZoomImage(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [zoomImage, selectedProject, selectedImageIndex]);
 
   return (
     <div className="min-h-screen text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-cyan-500/30">
@@ -334,33 +376,82 @@ export default function Home() {
                   </motion.button>
                 </Link>
               </div>
-            </motion.div>
-
-            {/* Photo Section */}
+            </motion.div>            {/* Photo Section */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.4 }}
               className="flex-1 relative w-full max-w-xl mx-auto"
             >
-              <div className="relative group">
-                {/* Decorative border glow */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-pastel-cyan rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-
-                {/* Main Hero Background - NEW heros.png */}
-                <div className="absolute -top-12 -right-12 w-full h-full bg-pastel-cyan/5 rounded-full blur-[100px] pointer-events-none" />
-
-                <div className="relative flex flex-col items-center">
-                  <div className="relative aspect-square w-full max-w-md rounded-full overflow-hidden border-8 border-white dark:border-zinc-900 shadow-2xl z-20">
-                    <Image
-                      src="/foto_ferza.png"
-                      alt="Fernanda Wawang Azraqi"
-                      fill
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      priority
-                    />
+              <div
+                className="relative group perspective-1000"
+                onMouseMove={handleMouseMove}
+              >
+                {/* Quote Bubble */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="absolute -top-12 -left-8 z-30 bg-black/60 dark:bg-zinc-900/60 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10 shadow-2xl hidden sm:flex items-center gap-3"
+                >
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-zinc-800">
+                    <Image src="/hoodie.jpeg" alt="Profile" width={32} height={32} className="object-cover" />
                   </div>
-                </div>
+                  <p className="text-[10px] font-medium text-white/90 leading-tight max-w-[180px]">"Sometimes We Need to Lose in Small Battle Inorder To Win The War"</p>
+                </motion.div>
+
+                {/* Main Hero Background - Glow */}
+                <motion.div
+                  className="absolute inset-0 bg-cyan-500/20 rounded-3xl blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    transform: `translate(${(mousePosition.x - 0.5) * 40}px, ${(mousePosition.y - 0.5) * 40}px)`
+                  }}
+                />
+
+                <motion.div
+                  style={{
+                    rotateX: (mousePosition.y - 0.5) * -15,
+                    rotateY: (mousePosition.x - 0.5) * 15,
+                    transformStyle: "preserve-3d",
+                  }}
+                  className="relative aspect-[3/4] w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-white/20 dark:border-zinc-800/50 shadow-2xl z-20 group-hover:border-cyan-500/50 transition-colors duration-500 isolation-isolate"
+                >
+                  <Image
+                    src="/foto_ferza.png"
+                    alt="Fernanda Wawang Azraqi"
+                    fill
+                    className="w-full h-full object-cover rounded-3xl transition-transform duration-700 ease-out group-hover:scale-105"
+                    priority
+                  />
+
+                  {/* Subtle Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+
+                  {/* Profile Pill Overlay */}
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between p-3 rounded-2xl bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/10">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
+                          <Image src="/small.jpeg" alt="Avatar" width={40} height={40} className="object-cover" />
+                        </div>
+                        <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-zinc-900" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs font-bold text-white">@ferza</span>
+                        <span className="text-[10px] text-white/60 font-medium">Online</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                      className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors"
+                    >
+                      Contact Me
+                    </button>
+                  </div>
+                </motion.div>
+
+                {/* Floating Elements Background */}
+                <div className="absolute -top-12 -right-12 w-64 h-64 bg-pastel-cyan/5 rounded-full blur-[100px] pointer-events-none" />
               </div>
             </motion.div>
           </div>
@@ -373,71 +464,95 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
           id="about"
-          className="py-24 border-t border-zinc-200/50 dark:border-zinc-800/50"
+          className="py-24 border-t border-zinc-200/50 dark:border-zinc-800/50 relative overflow-hidden"
         >
-          <div className="flex flex-col md:flex-row gap-12 items-start">
-            <motion.div
-              className="md:w-1/3"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-4xl font-bold tracking-tight mb-4">About <span className="text-cyan-500">Me</span></h3>
-              <p className="text-zinc-500 dark:text-zinc-400 font-medium">A brief look into my background and what I do.</p>
-            </motion.div>
-
-            <div className="md:w-2/3 grid gap-10">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
+            <div className="lg:w-1/2 space-y-12 order-2 lg:order-1">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1 }}
+                transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="prose prose-zinc dark:prose-invert max-w-none text-lg leading-relaxed text-zinc-600 dark:text-zinc-300 font-medium"
               >
-                <p className="mb-6">
-                  I am a versatile developer with a foundation in Computer Science and a passion for solving complex problems through technology. My expertise spans the entire development lifecycle, from designing structured PostgreSQL schemas and building robust Laravel backends in the banking sector to crafting fluid, high-conversion user interfaces with Next.js and Framer Motion.
-                </p>
-                <p>
-                  I thrive at the intersection of logic and creativity. Whether I'm optimizing internal banking workflows (improving efficiency by 40%), architecting fullstack SaaS platforms like **Kostify**, or diving into data-driven insights, my goal is always the same: to deliver scalable, secure, and visually stunning digital products that drive real business value.
-                </p>
+                <h3 className="text-4xl sm:text-5xl font-black mb-8 italic uppercase tracking-tighter">
+                  About <span className="text-cyan-500">Me</span>
+                </h3>
+
+                <div className="prose prose-zinc dark:prose-invert max-w-none text-lg leading-relaxed text-zinc-600 dark:text-zinc-300 font-medium space-y-6">
+                  <p>
+                    I am a versatile developer with a foundation in Computer Science and a passion for solving complex problems through technology. My expertise spans the entire development lifecycle, from designing structured PostgreSQL schemas and building robust Laravel backends in the banking sector to crafting fluid, high-conversion user interfaces with Next.js and Framer Motion.
+                  </p>
+                  <p>
+                    I thrive at the intersection of logic and creativity. Whether I'm optimizing internal banking workflows, architecting fullstack SaaS platforms like **Kostify**, or diving into data-driven insights, my goal is always the same: to deliver scalable, secure, and visually stunning digital products that drive real business value.
+                  </p>
+                </div>
               </motion.div>
 
+              {/* Stats Section */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
+                className="grid grid-cols-2 gap-8 py-8 border-y border-zinc-200/50 dark:border-zinc-800/50"
               >
-                <h4 className="text-xl font-bold mb-6 text-zinc-900 dark:text-zinc-100 placeholder-opacity-100 italic">Tech Arsenal</h4>
-                <motion.div
-                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
+                <div>
+                  <h4 className="text-4xl font-black text-zinc-900 dark:text-white italic tracking-tighter">15+</h4>
+                  <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">Project Finished</p>
+                </div>
+                <div>
+                  <h4 className="text-4xl font-black text-zinc-900 dark:text-white italic tracking-tighter">1+</h4>
+                  <p className="text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1">Years of Experience</p>
+                </div>
+              </motion.div>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="text-sm font-medium text-zinc-400 italic"
+              >
+                "Working with heart, creating with mind."
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <h4 className="text-xs font-black mb-6 text-zinc-400 uppercase tracking-[0.3em]">Tech Arsenal</h4>
+                <div className="flex flex-wrap gap-3">
                   {skills.map((skill) => {
                     const IconComponent = (Icons as any)[skill.icon] || Icons.Code2;
                     return (
                       <motion.div
                         key={skill.name}
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-col items-center gap-3 shadow-sm hover:shadow-xl hover:border-cyan-500/50 dark:hover:border-cyan-500/50 transition-all cursor-default group"
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:border-cyan-500/50 transition-all flex items-center gap-2"
                       >
-                        <div className={`p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 group-hover:bg-cyan-500/10 transition-colors ${skill.color}`}>
-                          <IconComponent size={24} />
+                        <div className={`${skill.color}`}>
+                          <IconComponent size={14} />
                         </div>
-                        <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-tighter">
+                        <span className="text-[10px] font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-tighter">
                           {skill.name}
                         </span>
                       </motion.div>
                     );
                   })}
-                </motion.div>
+                </div>
               </motion.div>
             </div>
+
+            <motion.div
+              className="lg:w-1/2 order-1 lg:order-2 flex justify-center py-12 lg:py-0"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+            >
+              <PhotoStack />
+            </motion.div>
           </div>
         </motion.section>
 
@@ -461,18 +576,17 @@ export default function Home() {
               <h3 className="text-4xl font-bold tracking-tight mb-4">Featured <span className="text-cyan-500">Projects</span></h3>
               <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg">Some of the works I'm most proud of.</p>
             </div>
-            
+
             {/* Filter UI */}
             <div className="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 custom-scrollbar">
               {["All", "Web App", "SaaS", "UI/UX"].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
-                    filter === cat
+                  className={`px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${filter === cat
                       ? "bg-cyan-500 text-zinc-900 shadow-md shadow-cyan-500/20"
                       : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
@@ -492,54 +606,54 @@ export default function Home() {
               {projects
                 .filter((project) => filter === "All" || project.category === filter)
                 .map((project, index) => (
-                <motion.div
-                  layout
-                  key={project.slug}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                  className="group relative"
-                >
-                <Link
-                  href={`/projects/${project.slug}`}
-                  onMouseEnter={() => setHoveredProject(index)}
-                  onMouseLeave={() => setHoveredProject(null)}
-                  className="w-full text-left h-full active:scale-[0.98] transition-all duration-300 block"
-                >
-                  <div className="h-full p-8 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-500 shadow-sm hover:shadow-xl">
-                    <div className="aspect-video w-full rounded-2xl overflow-hidden mb-8 relative bg-zinc-100 dark:bg-black">
-                      <Image
-                        src={project.images[0]}
-                        alt={project.title}
-                        fill
-                        className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
-                    </div>
+                  <motion.div
+                    layout
+                    key={project.slug}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    className="group relative"
+                  >
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      onMouseEnter={() => setHoveredProject(index)}
+                      onMouseLeave={() => setHoveredProject(null)}
+                      className="w-full text-left h-full active:scale-[0.98] transition-all duration-300 block"
+                    >
+                      <div className="h-full p-8 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-500 shadow-sm hover:shadow-xl">
+                        <div className="aspect-video w-full rounded-2xl overflow-hidden mb-8 relative bg-zinc-100 dark:bg-black">
+                          <Image
+                            src={project.images[0]}
+                            alt={project.title}
+                            fill
+                            className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                        </div>
 
-                    <h4 className="text-2xl font-bold mb-4 text-zinc-900 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">
-                      {project.title}
-                    </h4>
-                    <p className="text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed font-medium">
-                      {project.description}
-                    </p>
+                        <h4 className="text-2xl font-bold mb-4 text-zinc-900 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">
+                          {project.title}
+                        </h4>
+                        <p className="text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed font-medium">
+                          {project.description}
+                        </p>
 
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-xs px-3 py-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-300 font-semibold"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-                </motion.div>
-              ))}
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech.map((tech) => (
+                            <span
+                              key={tech}
+                              className="text-xs px-3 py-1.5 rounded-md bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-300 font-semibold"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
             </AnimatePresence>
           </motion.div>
         </motion.section>
@@ -650,7 +764,7 @@ export default function Home() {
             <p className="text-zinc-600 dark:text-zinc-400 mb-8 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
               I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Let's make it happen.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <button
                 onClick={() => setShowContactForm(!showContactForm)}
@@ -883,7 +997,7 @@ export default function Home() {
       )}
       {/* Image Zoom Modal */}
       <AnimatePresence>
-        {zoomImage && (
+        {zoomImage && selectedProject !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -903,6 +1017,41 @@ export default function Home() {
                 alt="Zoomed view"
                 className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
               />
+
+              {/* Navigation Controls */}
+              {projects[selectedProject].images.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const prevIdx = (selectedImageIndex - 1 + projects[selectedProject].images.length) % projects[selectedProject].images.length;
+                      setSelectedImageIndex(prevIdx);
+                      setZoomImage(projects[selectedProject].images[prevIdx]);
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/20 backdrop-blur-md group"
+                    aria-label="Previous image"
+                  >
+                    <Icons.ChevronLeft size={32} className="group-hover:-translate-x-1 transition-transform" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const nextIdx = (selectedImageIndex + 1) % projects[selectedProject].images.length;
+                      setSelectedImageIndex(nextIdx);
+                      setZoomImage(projects[selectedProject].images[nextIdx]);
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/20 backdrop-blur-md group"
+                    aria-label="Next image"
+                  >
+                    <Icons.ChevronRight size={32} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white font-bold text-sm tracking-widest">
+                    {selectedImageIndex + 1} / {projects[selectedProject].images.length}
+                  </div>
+                </>
+              )}
+
               <button
                 onClick={() => setZoomImage(null)}
                 className="absolute top-0 right-0 m-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/20 backdrop-blur-md"

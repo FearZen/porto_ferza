@@ -37,3 +37,7 @@ div[class*="min-h-screen"] {
 .backdrop-blur-xl {
   background-color: rgba(var(--background), 0.6) !important;
 }
+
+.perspective-1000 {
+  perspective: 1000px;
+}
