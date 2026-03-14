@@ -25,7 +25,7 @@ const projectDetails = {
             { label: "Petugas Access", email: "petugas@desa.id", pass: "password" }
         ],
         link: "https://surat-desa-production.up.railway.app/",
-        tech: ["Laravel 11", "PHP 8.2+", "Tailwind CSS", "Alpine.js", "Vite"],
+        tech: ["Laravel 12", "PHP 8.2+", "Tailwind CSS", "Alpine.js", "Vite"],
         images: [
             "/Screenshot 2026-03-14 202343.png",
             "/Screenshot 2026-03-14 202356.png",

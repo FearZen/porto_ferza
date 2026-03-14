@@ -5,11 +5,13 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import * as Icons from "lucide-react";
+import ContactForm from "@/components/ContactForm";
 
 const projects = [
   {
     title: "Desa Digital: Modern Village Administration System",
     slug: "desa-digital",
+    category: "Web App",
     description: "Premium, production-ready administrative platform transforming village governance. Streamlines complex bureaucratic processes into a seamless digital experience with robust backend functionality.",
     tech: ["Laravel 12", "PHP 8.2+", "Tailwind CSS", "Alpine.js", "Vite"],
     images: [
@@ -62,6 +64,7 @@ const projects = [
   {
     title: "SewaNusa: Premium Car Rental Platform",
     slug: "sewanusa",
+    category: "SaaS",
     description: "High-end car rental platform in Indonesia with a 'Premium Pastel' aesthetic. Features real-time stats, fleet CRUD, and a seamless booking experience for luxury travel.",
     tech: ["Next.js 15+", "TypeScript", "Tailwind CSS", "Framer Motion", "Supabase-ready"],
     images: ["/homesn.png", "/homesn1.png", "/homesn2.png", "/homesn3.png", "/homesn4.png", "/luxury.png", "/userdashsn.png", "/admindash1sn.png", "/admindash2sn.png", "/admindash3sn.png", "/admindash4sn.png"],
@@ -74,6 +77,7 @@ const projects = [
   {
     title: "Kostify: Smart Boarding House System",
     slug: "kostify",
+    category: "SaaS",
     description: "SaaS platform transforming boarding house management. Features a premium marketplace for tenants and a comprehensive business dashboard for owners.",
     tech: ["Next.js 15+", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Supabase", "PostgreSQL"],
     images: ["/kosthome.png", "/admindash.png", "/memberdash.png", "/kostlogin.png"],
@@ -93,6 +97,7 @@ const projects = [
   {
     title: "Data Access Form System",
     slug: "data-access-form",
+    category: "Web App",
     description: "High-security internal banking platform that revolutionizes data access workflows. Replaces manual paper-based processes with automated multi-level approvals.",
     tech: ["Laravel", "PostgreSQL", "PHP", "API Integration"],
     images: ["/bank1.png", "/bank2.png", "/bank3.png", "/bank4.png", "/bank5.png", "/bank6.png", "/bank7.png", "/bank8.png", "/bank9.png", "/bank10.png", "/bank11.png", "/bank12.png", "/bank13.png", "/bank14.png", "/bank15.png", "/bankmobile.png"],
@@ -101,6 +106,7 @@ const projects = [
   {
     title: "Design & Branding",
     slug: "design-branding",
+    category: "UI/UX",
     description: "Curated collection of high-fidelity UI/UX designs and brand identities. Focuses on creating visually stunning, user-centric interfaces in Figma.",
     tech: ["Figma", "UI/UX", "Digital Design", "Adobe Suite"],
     images: ["/1.png", "/2.png", "/3.png", "/4.png", "/5.png", "/6.png"],
@@ -109,6 +115,7 @@ const projects = [
   {
     title: "Growthly - SaaS Dashboard",
     slug: "growthly",
+    category: "UI/UX",
     description: "Business Intelligence Dashboard prototype acting as a 'Control Center' for SaaS founders to monitor MRR, user analytics, and business performance.",
     tech: ["Next.js", "Data Analytics", "UI/UX Design"],
     images: ["/login.png", "/Dashboard.png", "/Revenue.png", "/Analytics.png", "/users.png", "/settings.png"],
@@ -117,6 +124,7 @@ const projects = [
   {
     title: "Generator Ide Startup: YC-Style Humorous AI Generator",
     slug: "startup-idea-generator",
+    category: "Web App",
     description: "Interactive web app that helps users find their next 'Unicorn' business idea instantly. Built with a context-aware engine for logically consistent yet entertaining startup concepts.",
     tech: ["Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4", "Framer Motion", "Lucide React"],
     images: ["/GIS1.png", "/GIS2.png", "/GIS3.png", "/GIS4.png", "/GIS5.png"],
@@ -192,6 +200,8 @@ export default function Home() {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [zoomImage, setZoomImage] = useState<string | null>(null);
+  const [filter, setFilter] = useState("All");
+  const [showContactForm, setShowContactForm] = useState(false);
 
   return (
     <div className="min-h-screen text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-cyan-500/30">
@@ -445,27 +455,52 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="mb-16 md:flex justify-between items-end"
+            className="mb-12 md:flex justify-between items-end"
           >
             <div>
               <h3 className="text-4xl font-bold tracking-tight mb-4">Featured <span className="text-cyan-500">Projects</span></h3>
               <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg">Some of the works I'm most proud of.</p>
             </div>
+            
+            {/* Filter UI */}
+            <div className="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 custom-scrollbar">
+              {["All", "Web App", "SaaS", "UI/UX"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
+                    filter === cat
+                      ? "bg-cyan-500 text-zinc-900 shadow-md shadow-cyan-500/20"
+                      : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
+            layout
             className="grid sm:grid-cols-2 gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="group relative"
-              >
+            <AnimatePresence mode="popLayout">
+              {projects
+                .filter((project) => filter === "All" || project.category === filter)
+                .map((project, index) => (
+                <motion.div
+                  layout
+                  key={project.slug}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                  className="group relative"
+                >
                 <Link
                   href={`/projects/${project.slug}`}
                   onMouseEnter={() => setHoveredProject(index)}
@@ -503,8 +538,9 @@ export default function Home() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
         </motion.section>
 
@@ -606,32 +642,52 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto px-6 py-16 rounded-[3rem] bg-gradient-to-br from-cyan-500/5 to-pastel-cyan/5 border border-cyan-500/10"
+            className="text-center max-w-4xl mx-auto px-6 py-16 rounded-[3rem] bg-gradient-to-br from-cyan-500/5 to-pastel-cyan/5 border border-cyan-500/10"
           >
-            <h3 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">
+            <h3 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
               Ready to create something <span className="text-cyan-500">extraordinary?</span>
             </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-12 text-lg md:text-xl font-medium leading-relaxed">
+            <p className="text-zinc-600 dark:text-zinc-400 mb-8 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
               I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Let's make it happen.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <button
+                onClick={() => setShowContactForm(!showContactForm)}
+                className="inline-flex items-center justify-center px-8 py-3 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1"
+              >
+                Send an Email
+              </button>
               {[
-                { href: "mailto:fernandaazra@gmail.com", label: "Send an Email", isPrimary: true },
-                { href: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/", label: "LinkedIn", isPrimary: false },
-                { href: "https://github.com/FearZen", label: "GitHub", isPrimary: false },
+                { href: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/", label: "LinkedIn" },
+                { href: "https://github.com/FearZen", label: "GitHub" },
               ].map((btn) => (
                 <a
                   key={btn.label}
                   href={btn.href}
-                  className={`inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${btn.isPrimary
-                    ? "bg-cyan-500 hover:bg-cyan-400 text-zinc-900 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-1"
-                    : "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 hover:-translate-y-1"
-                    }`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-3 rounded-xl font-semibold transition-all duration-300 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 hover:-translate-y-1"
                 >
                   {btn.label}
                 </a>
               ))}
             </div>
+
+            <AnimatePresence>
+              {showContactForm && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: "anticipate" }}
+                  className="overflow-hidden"
+                >
+                  <ContactForm />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </motion.div>
         </motion.section>
       </main>
