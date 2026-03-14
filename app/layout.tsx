@@ -22,16 +22,16 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Fernanda Wawang Azraqi | Fullstack Developer",
-  description: "Computer Science Graduate & Fullstack Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.",
+  title: "Fernanda Wawang Azraqi | Front End Developer",
+  description: "Computer Science Graduate & Front End Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.",
   openGraph: {
-    title: "Fernanda Wawang Azraqi | Fullstack Developer",
-    description: "Computer Science Graduate & Fullstack Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.",
+    title: "Fernanda Wawang Azraqi | Front End Developer",
+    description: "Computer Science Graduate & Front End Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.",
     url: "https://porto-ferza.vercel.app", // Replace with actual domain 
     siteName: "Ferza Portfolio",
     images: [
       {
-        url: "/foto_ferza.png", 
+        url: "/foto_ferza.png",
         width: 1200,
         height: 630,
         alt: "Fernanda Wawang Azraqi - Portfolio",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fernanda Wawang Azraqi | Fullstack Developer",
-    description: "Computer Science Graduate & Fullstack Developer specializing in building high-performance SaaS solutions.",
+    title: "Fernanda Wawang Azraqi | Front End Developer",
+    description: "Computer Science Graduate & Front End Developer specializing in building high-performance SaaS solutions.",
     images: ["/foto_ferza.png"],
   },
 };
