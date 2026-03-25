@@ -74,7 +74,7 @@ function Polaroid({ src, initialRotate, initialX, initialY, containerRef, setZIn
           src={src} 
           alt="Portofolio Photo" 
           fill 
-          className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
+          className="object-cover object-top grayscale group-hover:grayscale-0 active:grayscale-0 group-active:grayscale-0 transition-all duration-500"
           draggable={false}
         />
       </div>

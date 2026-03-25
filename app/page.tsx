@@ -218,8 +218,16 @@ export default function Home() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY, currentTarget } = e;
+  const handleMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
+    let clientX, clientY;
+    if ("touches" in e) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = (e as React.MouseEvent).clientX;
+      clientY = (e as React.MouseEvent).clientY;
+    }
+    const currentTarget = e.currentTarget as HTMLElement;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
     const x = (clientX - left) / width;
     const y = (clientY - top) / height;
@@ -388,6 +396,9 @@ export default function Home() {
               <div
                 className="relative group perspective-1000"
                 onMouseMove={handleMouseMove}
+                onTouchMove={handleMouseMove}
+                onTouchStart={handleMouseMove}
+                onTouchEnd={() => setMousePosition({ x: 0.5, y: 0.5 })}
               >
                 {/* Quote Bubble */}
                 <motion.div
@@ -404,7 +415,7 @@ export default function Home() {
 
                 {/* Main Hero Background - Glow */}
                 <motion.div
-                  className="absolute inset-0 bg-cyan-500/20 rounded-3xl blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 bg-cyan-500/20 rounded-3xl blur-[80px] opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-500"
                   style={{
                     transform: `translate(${(mousePosition.x - 0.5) * 40}px, ${(mousePosition.y - 0.5) * 40}px)`
                   }}
@@ -416,13 +427,13 @@ export default function Home() {
                     rotateY: (mousePosition.x - 0.5) * 15,
                     transformStyle: "preserve-3d",
                   }}
-                  className="relative aspect-[3/4] w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-white/20 dark:border-zinc-800/50 shadow-2xl z-20 group-hover:border-cyan-500/50 transition-colors duration-500 isolation-isolate"
+                  className="relative aspect-[3/4] w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-white/20 dark:border-zinc-800/50 shadow-2xl z-20 group-hover:border-cyan-500/50 group-active:border-cyan-500/50 transition-colors duration-500 isolation-isolate"
                 >
                   <Image
                     src="/foto_ferza.png"
                     alt="Fernanda Wawang Azraqi"
                     fill
-                    className="w-full h-full object-cover rounded-3xl transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-full object-cover rounded-3xl transition-transform duration-700 ease-out group-hover:scale-105 group-active:scale-105"
                     priority
                   />
 

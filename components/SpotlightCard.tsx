@@ -26,6 +26,18 @@ export default function SpotlightCard({
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!divRef.current || isFocused) return;
+    const div = divRef.current;
+    const rect = div.getBoundingClientRect();
+    setPosition({ x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top });
+    setOpacity(1);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isFocused) setOpacity(0);
+  };
+
   const handleFocus = () => {
     setIsFocused(true);
     setOpacity(1);
@@ -52,6 +64,9 @@ export default function SpotlightCard({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchMove}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       className={`relative overflow-hidden group ${className}`}
     >
       <div

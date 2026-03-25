@@ -61,8 +61,8 @@ export default function DecryptText({
 
   return (
     <span className={`relative inline-block ${className}`}>
-      <span className="invisible whitespace-pre">{text}</span>
-      <motion.span className="absolute top-0 left-0 whitespace-pre">
+      <span className="invisible">{text}</span>
+      <motion.span className="absolute top-0 left-0 w-full h-full text-left">
         {displayText || text}
       </motion.span>
     </span>
