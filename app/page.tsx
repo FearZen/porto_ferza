@@ -346,7 +346,12 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight text-zinc-900 dark:text-white"
               >
-                <DecryptText text="Hi, I'm Fernanda 👋" delay={300} speed={40} maxIterations={8} />
+                <DecryptText text="Hi, I'm" delay={300} speed={50} maxIterations={8} />
+                <span className="whitespace-nowrap">
+                  {" "}
+                  <DecryptText text="Fernanda" delay={400} speed={50} maxIterations={8} />
+                  <span className="inline-block ml-2 hover:rotate-12 transition-transform cursor-pointer">👋</span>
+                </span>
               </motion.h1>
 
               <motion.p

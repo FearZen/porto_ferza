@@ -24,17 +24,15 @@ export default function DecryptText({
   const startDecrypt = () => {
     let iteration = 0;
     
-    // Reset to empty exactly on start if we want typing effect
-    // But since it's decrypt, we just start scrambling what's there or start from 0 length
-    setDisplayText(text.split("").map(() => letters[Math.floor(Math.random() * letters.length)]).join(""));
+    // Initial random scramble, ignoring spaces natively
+    setDisplayText(text.split("").map(t => t === " " ? " " : letters[Math.floor(Math.random() * letters.length)]).join(""));
 
     const interval = setInterval(() => {
       setDisplayText((currentText) => {
         return text.split("")
           .map((letter, index) => {
-            if (index < iteration) {
-              return text[index];
-            }
+            if (index < iteration) return text[index];
+            if (letter === " ") return " ";
             return letters[Math.floor(Math.random() * letters.length)];
           })
           .join("");
@@ -57,7 +55,7 @@ export default function DecryptText({
         timeout = setTimeout(startDecrypt, delay);
     }
     return () => clearTimeout(timeout);
-  }, [hasAnimated, delay, text]);
+  }, [hasAnimated, delay, text, maxIterations, speed]);
 
   return (
     <span className={`relative inline-block ${className}`}>
