@@ -16,7 +16,7 @@ const cvData = {
   cv: "https://drive.google.com/drive/folders/1l_rPw60Tl9BDfM40YPsfcbjP24jiwCrV?usp=sharing",
   profileImage: "/foto_kotak_ferza.png", // Using the squared version for CV
   profile:
-    "A versatile Computer Science graduate and Fullstack Developer with a strong foundation in both enterprise-level infrastructure and modern web development. With hands-on experience in the banking sector (Laravel/PostgreSQL) and the latest SaaS technologies (Next.js/Supabase), I specialize in building robust, data-driven solutions that balance technical efficiency with premium user experiences.",
+    "A highly driven Software Engineer specializing in scalable frontend architectures and resilient backend systems. From architecting secure enterprise workflows in the banking sector to delivering seamless, high-performance web applications using React and Next.js, I combine deep technical expertise with a sharp eye for modern UI/UX to build digital products that scale and delight users.",
   education: [
     {
       school: "University of Muhammadiyah Malang",

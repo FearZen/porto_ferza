@@ -347,7 +347,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl leading-relaxed font-medium"
               >
-                Computer Science Graduate & Fullstack Developer specializing in building high-performance SaaS solutions, enterprise banking infrastructure, and data-driven applications.
+                Bridging the gap between robust engineering and intuitive design. I build high-performance SaaS platforms, secure banking infrastructure, and scalable web applications that drive real business impact.
               </motion.p>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -482,10 +482,10 @@ export default function Home() {
 
                 <div className="prose prose-zinc dark:prose-invert max-w-none text-lg leading-relaxed text-zinc-600 dark:text-zinc-300 font-medium space-y-6">
                   <p>
-                    I am a versatile developer with a foundation in Computer Science and a passion for solving complex problems through technology. My expertise spans the entire development lifecycle, from designing structured PostgreSQL schemas and building robust Laravel backends in the banking sector to crafting fluid, high-conversion user interfaces with Next.js and Framer Motion.
+                    I am a versatile software engineer with a deep passion for transforming complex problems into elegant, scalable solutions. My expertise spans the entire development lifecycle from engineering secure, high-throughput backend systems for the banking sector, to crafting stunning, fluid user experiences using modern frontend technologies.
                   </p>
                   <p>
-                    I thrive at the intersection of logic and creativity. Whether I'm optimizing internal banking workflows, architecting fullstack SaaS platforms like **Kostify**, or diving into data-driven insights, my goal is always the same: to deliver scalable, secure, and visually stunning digital products that drive real business value.
+                    Thriving at the intersection of logic and creativity, I treat code as my canvas. Whether architecting internal enterprise workflows, building data-driven SaaS platforms like **Kostify**, or bringing seamless UI/UX designs to life, my mission is simple: bridging technical excellence with real-world business value.
                   </p>
                 </div>
               </motion.div>
@@ -576,7 +576,7 @@ export default function Home() {
           >
             <div>
               <h3 className="text-4xl font-bold tracking-tight mb-4">Featured <span className="text-cyan-500">Projects</span></h3>
-              <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg">Some of the works I'm most proud of.</p>
+              <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg">A curated selection of my technical ventures and digital products.</p>
             </div>
 
             {/* Filter UI */}
@@ -764,7 +764,7 @@ export default function Home() {
               Ready to create something <span className="text-cyan-500">extraordinary?</span>
             </h3>
             <p className="text-zinc-600 dark:text-zinc-400 mb-8 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Let's make it happen.
+              Whether you have a visionary project in mind, need a technical execution partner, or just want to engineer something cool together, my inbox is always open. Let's build the future.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
