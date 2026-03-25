@@ -1,6 +1,10 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import Particles from "@/components/Particles";
+import SpotlightCard from "@/components/SpotlightCard";
+import Magnetic from "@/components/Magnetic";
+import DecryptText from "@/components/DecryptText";
 
 const cvData = {
   name: "Fernanda Wawang Azraqi",
@@ -123,6 +127,14 @@ export default function CVPage() {
 
       {/* Background ambient light effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 z-0">
+          <Particles
+            color="#06b6d4"
+            quantity={150}
+            staticity={30}
+            ease={50}
+          />
+        </div>
         <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-500/10 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-pastel-cyan/10 blur-[120px]" />
       </div>
@@ -139,9 +151,12 @@ export default function CVPage() {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl sm:text-2xl font-bold tracking-tight text-center sm:text-left"
+            className="text-xl sm:text-2xl font-bold tracking-tight text-center sm:text-left flex items-center gap-2"
           >
-            Curriculum <span className="text-cyan-600 dark:text-cyan-400">Vitae</span>
+            <DecryptText text="Curriculum" speed={50} delay={300} maxIterations={12} /> 
+            <span className="text-cyan-600 dark:text-cyan-400">
+              <DecryptText text="Vitae" speed={60} delay={600} maxIterations={12} />
+            </span>
           </motion.h1>
           <motion.div
             initial={{ opacity: 0 }}
@@ -166,16 +181,18 @@ export default function CVPage() {
                 </motion.span>
               </a>
             ))}
-            <motion.a
-              href={cvData.cv}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-md text-sm font-semibold transition-colors shadow-sm shadow-cyan-500/20"
-            >
-              📄 PDF View
-            </motion.a>
+            <Magnetic pull={0.2}>
+              <motion.a
+                href={cvData.cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="block px-4 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-md text-sm font-semibold transition-colors shadow-sm shadow-cyan-500/20"
+              >
+                📄 PDF View
+              </motion.a>
+            </Magnetic>
           </motion.div>
         </div>
       </motion.nav>
@@ -251,22 +268,26 @@ export default function CVPage() {
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                <a
-                  href={cvData.cv}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-xl font-semibold transition-all shadow-lg shadow-cyan-500/25 hover:-translate-y-1"
-                >
-                  Download Full CV
-                </a>
-                <a
-                  href={cvData.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border-2 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-xl font-semibold transition-all hover:-translate-y-1"
-                >
-                  LinkedIn Profile
-                </a>
+                <Magnetic pull={0.15}>
+                  <a
+                    href={cvData.cv}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-zinc-900 rounded-xl font-semibold transition-all shadow-lg shadow-cyan-500/25 hover:-translate-y-1"
+                  >
+                    Download Full CV
+                  </a>
+                </Magnetic>
+                <Magnetic pull={0.15}>
+                  <a
+                    href={cvData.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-6 py-3 border-2 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10 rounded-xl font-semibold transition-all hover:-translate-y-1"
+                  >
+                    LinkedIn Profile
+                  </a>
+                </Magnetic>
               </div>
             </div>
           </div>
@@ -288,26 +309,28 @@ export default function CVPage() {
               <div className="space-y-12">
                 {cvData.experience.map((exp, idx) => (
                   <div key={idx} className="relative pl-6 sm:pl-8 border-l-2 border-zinc-200 dark:border-zinc-800">
-                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-cyan-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
-                    <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
-                      <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-                        {exp.position}
-                      </h3>
-                      <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 px-3 py-1 rounded-full w-fit">
-                        {exp.period}
-                      </span>
-                    </div>
-                    <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
-                      {exp.company} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {exp.location}</span>
-                    </p>
-                    <ul className="space-y-3">
-                      {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                          <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <span className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-cyan-500 border-2 border-cyan-400 ring-4 ring-white dark:ring-[#0a0a0a] shadow-[0_0_15px_rgba(6,182,212,0.6)] animate-pulse"></span>
+                    <SpotlightCard className="p-6 sm:p-8 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                      <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+                        <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+                          {exp.position}
+                        </h3>
+                        <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1 rounded-full w-fit whitespace-nowrap">
+                          {exp.period}
+                        </span>
+                      </div>
+                      <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
+                        {exp.company} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {exp.location}</span>
+                      </p>
+                      <ul className="space-y-3">
+                        {exp.achievements.map((achievement, i) => (
+                          <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                            <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </SpotlightCard>
                   </div>
                 ))}
               </div>
@@ -326,26 +349,28 @@ export default function CVPage() {
               <div className="space-y-12">
                 {cvData.organizations.map((org, idx) => (
                   <div key={idx} className="relative pl-6 sm:pl-8 border-l-2 border-zinc-200 dark:border-zinc-800">
-                    <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-900 border-2 border-cyan-500 ring-4 ring-white dark:ring-[#0a0a0a]"></span>
-                    <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
-                      <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
-                        {org.position}
-                      </h3>
-                      <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 px-3 py-1 rounded-full w-fit">
-                        {org.period}
-                      </span>
-                    </div>
-                    <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
-                      {org.org} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {org.location}</span>
-                    </p>
-                    <ul className="space-y-3">
-                      {org.achievements.map((achievement, i) => (
-                        <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
-                          <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <span className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-cyan-500 border-2 border-cyan-400 ring-4 ring-white dark:ring-[#0a0a0a] shadow-[0_0_15px_rgba(6,182,212,0.6)] animate-pulse"></span>
+                    <SpotlightCard className="p-6 sm:p-8 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                      <div className="mb-2 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+                        <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+                          {org.position}
+                        </h3>
+                        <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1 rounded-full w-fit whitespace-nowrap">
+                          {org.period}
+                        </span>
+                      </div>
+                      <p className="text-lg font-medium text-cyan-600 dark:text-cyan-400 mb-4">
+                        {org.org} <span className="text-zinc-500 dark:text-zinc-500 font-normal">| {org.location}</span>
+                      </p>
+                      <ul className="space-y-3">
+                        {org.achievements.map((achievement, i) => (
+                          <li key={i} className="flex gap-3 text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                            <span className="text-cyan-500 font-bold shrink-0 mt-0.5">▪</span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </SpotlightCard>
                   </div>
                 ))}
               </div>
@@ -366,16 +391,16 @@ export default function CVPage() {
               </h2>
               <div className="space-y-8">
                 {cvData.education.map((edu, idx) => (
-                  <div key={idx}>
+                  <SpotlightCard key={idx} className="p-5 sm:p-6 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
                     <h3 className="text-lg font-bold text-cyan-600 dark:text-cyan-400 mb-1">
                       {edu.degree}
                     </h3>
                     <p className="font-semibold text-zinc-900 dark:text-zinc-200 mb-1">{edu.school}</p>
                     <p className="text-sm text-zinc-500 mb-2">{edu.period} • {edu.location}</p>
-                    <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/50 px-3 py-1 rounded-md w-fit">
+                    <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1 rounded-md w-fit">
                       GPA: {edu.gpa}
                     </p>
-                  </div>
+                  </SpotlightCard>
                 ))}
               </div>
             </motion.section>
@@ -392,7 +417,7 @@ export default function CVPage() {
               </h2>
               <div className="space-y-6">
                 {(cvData.skills.technical as any[]).map((group) => (
-                  <div key={group.category}>
+                  <SpotlightCard key={group.category} className="p-5 sm:p-6 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
                     <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-3">
                       {group.category}
                     </h3>
@@ -400,13 +425,13 @@ export default function CVPage() {
                       {group.items.map((skill: string) => (
                         <span
                           key={skill}
-                          className="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-cyan-500/50 transition-colors cursor-default"
+                          className="px-3 py-1.5 rounded-lg bg-white/50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:border-cyan-500/50 transition-colors cursor-default"
                         >
                           {skill}
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </SpotlightCard>
                 ))}
               </div>
             </motion.section>
@@ -421,14 +446,16 @@ export default function CVPage() {
               <h2 className="text-xl font-bold tracking-tight mb-6 text-zinc-900 dark:text-white">
                 Languages
               </h2>
-              <ul className="space-y-3">
-                {cvData.skills.languages.map((lang, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-zinc-700 dark:text-zinc-300 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0" />
-                    {lang}
-                  </li>
-                ))}
-              </ul>
+              <SpotlightCard className="p-5 sm:p-6 rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-sm transition-all hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                <ul className="space-y-3">
+                  {cvData.skills.languages.map((lang, idx) => (
+                    <li key={idx} className="flex items-center gap-3 text-zinc-700 dark:text-zinc-300 font-medium">
+                      <span className="w-2 h-2 rounded-full bg-cyan-500 shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
+                      {lang}
+                    </li>
+                  ))}
+                </ul>
+              </SpotlightCard>
             </motion.section>
           </div>
         </div>

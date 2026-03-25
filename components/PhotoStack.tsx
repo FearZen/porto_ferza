@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 
 const photos = [
-  { id: 1, src: "/body.jpeg", rotate: -15, x: -60, y: -40, label: "Adventure" },
-  { id: 2, src: "/hoodie.jpeg", rotate: 10, x: 80, y: -60, label: "Focus" },
-  { id: 3, src: "/small.jpeg", rotate: -5, x: -20, y: 80, label: "Digital" },
-  { id: 4, src: "/foto_ferza.png", rotate: 8, x: 40, y: 120, label: "Me" },
+  { id: 1, src: "/ferzakayu.png", rotate: -15, x: -60, y: -40 },
+  { id: 2, src: "/ferzasofa.png", rotate: 10, x: 80, y: -60 },
+  { id: 3, src: "/ferzalift2.png", rotate: -5, x: -20, y: 80 },
+  { id: 4, src: "/foto_ferza.png", rotate: 8, x: 40, y: 120 },
 ];
 
 export default function PhotoStack() {
@@ -31,7 +31,6 @@ export default function PhotoStack() {
             initialRotate={photo.rotate}
             initialX={photo.x}
             initialY={photo.y}
-            label={photo.label}
             containerRef={containerRef}
             setZIndex={() => setZIndex((prev) => prev + 1)}
           />
@@ -41,7 +40,7 @@ export default function PhotoStack() {
   );
 }
 
-function Polaroid({ src, initialRotate, initialX, initialY, label, containerRef, setZIndex }: any) {
+function Polaroid({ src, initialRotate, initialX, initialY, containerRef, setZIndex }: any) {
   const [currentZIndex, setCurrentZIndex] = useState(0);
   const x = useMotionValue(initialX);
   const y = useMotionValue(initialY);
@@ -73,16 +72,11 @@ function Polaroid({ src, initialRotate, initialX, initialY, label, containerRef,
       <div className="relative w-56 aspect-square overflow-hidden bg-zinc-200 dark:bg-zinc-800">
         <Image 
           src={src} 
-          alt={label} 
+          alt="Portofolio Photo" 
           fill 
-          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
           draggable={false}
         />
-      </div>
-      <div className="pt-4 pb-2 px-1 text-center font-handwriting">
-        <span className="text-zinc-600 dark:text-zinc-500 text-lg font-medium select-none italic tracking-tighter">
-          {label}
-        </span>
       </div>
       
       {/* Decorative Tape Shadow */}

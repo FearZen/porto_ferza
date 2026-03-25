@@ -183,7 +183,7 @@ export default function Lanyard() {
           {/* Photo */}
           <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-white/10 bg-zinc-800">
             <Image 
-              src="/body.jpeg" 
+              src="/ferzakayu.png" 
               alt="Fernanda Wawang Azraqi" 
               fill 
               className="object-cover"

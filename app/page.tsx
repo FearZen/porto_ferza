@@ -7,6 +7,10 @@ import Image from "next/image";
 import * as Icons from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import PhotoStack from "@/components/PhotoStack";
+import SplitText from "@/components/SplitText";
+import SpotlightCard from "@/components/SpotlightCard";
+import DecryptText from "@/components/DecryptText";
+import Particles from "@/components/Particles";
 
 const projects = [
   {
@@ -252,6 +256,7 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-pastel-cyan/10 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-500/10 blur-[120px]" />
+        <Particles className="z-0" quantity={50} color="#06b6d4" />
       </div>
 
       {/* Navigation */}
@@ -327,17 +332,14 @@ export default function Home() {
                 Available for work
               </motion.div>
 
-              <motion.h2
+              <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight"
+                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight text-zinc-900 dark:text-white"
               >
-                Hi, I'm <br />
-                <span className="bg-gradient-to-r from-cyan-500 via-pastel-cyan to-cyan-300 bg-clip-text text-transparent">
-                  Fernanda 👋
-                </span>
-              </motion.h2>
+                <DecryptText text="Hi, I'm Fernanda 👋" delay={300} speed={25} maxIterations={8} />
+              </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -395,7 +397,7 @@ export default function Home() {
                   className="absolute -top-12 -left-8 z-30 bg-black/60 dark:bg-zinc-900/60 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10 shadow-2xl hidden sm:flex items-center gap-3"
                 >
                   <div className="w-8 h-8 rounded-full overflow-hidden bg-zinc-800">
-                    <Image src="/hoodie.jpeg" alt="Profile" width={32} height={32} className="object-cover" />
+                    <Image src="/ferzasofa.png" alt="Profile" width={32} height={32} className="object-cover" />
                   </div>
                   <p className="text-[10px] font-medium text-white/90 leading-tight max-w-[180px]">"Sometimes We Need to Lose in Small Battle Inorder To Win The War"</p>
                 </motion.div>
@@ -432,7 +434,7 @@ export default function Home() {
                     <div className="flex items-center gap-3">
                       <div className="relative">
                         <div className="w-10 h-10 rounded-full overflow-hidden border border-white/20">
-                          <Image src="/small.jpeg" alt="Avatar" width={40} height={40} className="object-cover" />
+                          <Image src="/ferzalift2.png" alt="Avatar" width={40} height={40} className="object-cover" />
                         </div>
                         <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-zinc-900" />
                       </div>
@@ -584,8 +586,8 @@ export default function Home() {
                   key={cat}
                   onClick={() => setFilter(cat)}
                   className={`px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${filter === cat
-                      ? "bg-cyan-500 text-zinc-900 shadow-md shadow-cyan-500/20"
-                      : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                    ? "bg-cyan-500 text-zinc-900 shadow-md shadow-cyan-500/20"
+                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
                     }`}
                 >
                   {cat}
@@ -621,7 +623,7 @@ export default function Home() {
                       onMouseLeave={() => setHoveredProject(null)}
                       className="w-full text-left h-full active:scale-[0.98] transition-all duration-300 block"
                     >
-                      <div className="h-full p-8 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-500 shadow-sm hover:shadow-xl">
+                      <SpotlightCard className="h-full p-8 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-500 shadow-sm hover:shadow-xl">
                         <div className="aspect-video w-full rounded-2xl overflow-hidden mb-8 relative bg-zinc-100 dark:bg-black">
                           <Image
                             src={project.images[0]}
@@ -650,7 +652,7 @@ export default function Home() {
                             </span>
                           ))}
                         </div>
-                      </div>
+                      </SpotlightCard>
                     </Link>
                   </motion.div>
                 ))}
@@ -697,7 +699,7 @@ export default function Home() {
                 className={`group relative block w-full h-full outline-none active:scale-[0.98] transition-all duration-300 ${project.gridSize === 'large' ? 'md:col-span-2 md:row-span-1' : ''
                   }`}
               >
-                <div className="h-full p-8 rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-cyan-500/30 overflow-hidden relative">
+                <SpotlightCard className="h-full p-8 rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-cyan-500/30 overflow-hidden relative">
                   {/* Subtle decorative elements for bento grid */}
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-colors" />
 
@@ -736,7 +738,7 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
               </motion.a>
             ))}
           </motion.div>
