@@ -338,7 +338,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight text-zinc-900 dark:text-white"
               >
-                <DecryptText text="Hi, I'm Fernanda 👋" delay={300} speed={25} maxIterations={8} />
+                <DecryptText text="Hi, I'm Fernanda 👋" delay={300} speed={40} maxIterations={8} />
               </motion.h1>
 
               <motion.p

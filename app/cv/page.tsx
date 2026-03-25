@@ -29,7 +29,7 @@ const cvData = {
   experience: [
     {
       company: "PT Digital Inteligensi Nusantara",
-      location: "Indonesia",
+      location: "Mataram, Indonesia",
       position: "Front End Developer Intern",
       period: "Jan 2026 – Present",
       achievements: [
@@ -42,7 +42,7 @@ const cvData = {
     },
     {
       company: "PT Bank NTB Syariah",
-      location: "Mataram",
+      location: "Mataram, Indonesia",
       position: "Front End Developer Intern",
       period: "Agustus – September 2024",
       achievements: [
@@ -153,7 +153,7 @@ export default function CVPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl sm:text-2xl font-bold tracking-tight text-center sm:text-left flex items-center gap-2"
           >
-            <DecryptText text="Curriculum" speed={50} delay={300} maxIterations={12} /> 
+            <DecryptText text="Curriculum" speed={50} delay={300} maxIterations={12} />
             <span className="text-cyan-600 dark:text-cyan-400">
               <DecryptText text="Vitae" speed={60} delay={600} maxIterations={12} />
             </span>

@@ -5,17 +5,27 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const [phase, setPhase] = useState(1); // 1 = FERZA, 2 = FE
 
   useEffect(() => {
-    // Hide preloader shortly after the animation sequence finishes
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
+    // Phase 1 to Phase 2 transition after 1.6 seconds
+    const phaseTimer = setTimeout(() => setPhase(2), 1600);
+    // Hide preloader at 3.2 seconds
+    const completeTimer = setTimeout(() => setIsLoading(false), 3200);
+    
+    return () => {
+      clearTimeout(phaseTimer);
+      clearTimeout(completeTimer);
+    };
   }, []);
+
+  const letters = ["F", "E", "R", "Z", "A"];
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
+          key="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
@@ -31,74 +41,67 @@ export default function Preloader() {
             />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative z-10 flex flex-col items-center"
-          >
-            {/* Logo/Icon Container */}
-            <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-              {/* Framer Motion SVG Line Drawing */}
-              <svg 
-                viewBox="0 0 100 100" 
-                className="w-full h-full text-cyan-500"
-              >
-                <motion.path 
-                  stroke="currentColor" 
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  // A stylized monogram 'F' path
-                  d="M 35,80 L 35,20 L 75,20 M 35,50 L 65,50" 
-                  initial={{ pathLength: 0, fill: "rgba(6, 182, 212, 0)" }}
-                  animate={{ 
-                    pathLength: 1, 
-                    fill: ["rgba(6, 182, 212, 0)", "rgba(6, 182, 212, 0)", "rgba(6, 182, 212, 1)"],
-                    stroke: ["rgba(6, 182, 212, 1)", "rgba(6, 182, 212, 1)", "rgba(6, 182, 212, 0)"]
-                  }}
-                  transition={{ 
-                    duration: 1.8, 
-                    ease: "easeInOut",
-                    times: [0, 0.7, 1]
-                  }}
-                />
-              </svg>
-            </div>
-
-            {/* Loading Text */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex items-center gap-1"
+          <div className="relative z-10 flex flex-col items-center">
+            {/* Animated Logo Text */}
+            <motion.div 
+              layout 
+              className="flex items-center text-7xl md:text-8xl font-black text-cyan-500 mb-6 tracking-tighter"
             >
-              <span className="text-sm font-bold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
-                Crafting Experience
-              </span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="text-cyan-500 font-bold"
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 1.5, delay: 0.2, repeat: Infinity, ease: "easeInOut" }}
-                className="text-cyan-500 font-bold"
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 1.5, delay: 0.4, repeat: Infinity, ease: "easeInOut" }}
-                className="text-cyan-500 font-bold"
-              >
-                .
-              </motion.span>
+              <AnimatePresence mode="popLayout">
+                {letters.map((letter, i) => {
+                  if (phase === 2 && i > 1) return null;
+
+                  return (
+                    <motion.span
+                      layout
+                      key={i}
+                      initial={{ opacity: 0, y: 40, filter: "blur(4px)", scale: 0.8 }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                      exit={{ opacity: 0, y: -40, filter: "blur(10px)", scale: 0.5 }}
+                      transition={{ 
+                        duration: 0.6, 
+                        delay: phase === 1 ? i * 0.1 : 0, 
+                        type: "spring", 
+                        bounce: 0.4 
+                      }}
+                      className="inline-block drop-shadow-lg"
+                    >
+                      {letter}
+                    </motion.span>
+                  );
+                })}
+              </AnimatePresence>
             </motion.div>
-          </motion.div>
+
+            {/* Dynamic Subtitle */}
+            <motion.div layout className="relative h-6 flex justify-center w-full">
+              <AnimatePresence>
+                {phase === 1 ? (
+                  <motion.div
+                    key="name"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute whitespace-nowrap text-sm font-bold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400"
+                  >
+                    Fernanda Wawang Azraqi
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="role"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute whitespace-nowrap text-[15px] font-black uppercase tracking-[0.4em] text-cyan-500 drop-shadow-md"
+                  >
+                    Front End Dev
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
