@@ -5,6 +5,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Preloader from "@/components/Preloader";
 import BackToTop from "@/components/BackToTop";
+import Terminal from "@/components/Terminal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,12 +57,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased font-sans preloading`}
       >
         <SmoothScroll>
           <Preloader />
           <ThemeSwitcher />
           {children}
+          <Terminal />
           <BackToTop />
         </SmoothScroll>
       </body>

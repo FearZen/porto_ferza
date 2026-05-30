@@ -8,14 +8,19 @@ export default function Preloader() {
   const [phase, setPhase] = useState(1); // 1 = FERZA, 2 = FE
 
   useEffect(() => {
+    document.body.classList.add("preloading");
     // Phase 1 to Phase 2 transition after 1.6 seconds
     const phaseTimer = setTimeout(() => setPhase(2), 1600);
     // Hide preloader at 3.2 seconds
-    const completeTimer = setTimeout(() => setIsLoading(false), 3200);
+    const completeTimer = setTimeout(() => {
+      setIsLoading(false);
+      document.body.classList.remove("preloading");
+    }, 3200);
     
     return () => {
       clearTimeout(phaseTimer);
       clearTimeout(completeTimer);
+      document.body.classList.remove("preloading");
     };
   }, []);
 
@@ -29,7 +34,7 @@ export default function Preloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white dark:bg-[#050505]"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-white dark:bg-[#050505]"
         >
           {/* Decorative background glow */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">

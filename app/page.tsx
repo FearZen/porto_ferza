@@ -11,6 +11,8 @@ import SplitText from "@/components/SplitText";
 import SpotlightCard from "@/components/SpotlightCard";
 import DecryptText from "@/components/DecryptText";
 import Particles from "@/components/Particles";
+import Magnetic from "@/components/Magnetic";
+import SkillRadar from "@/components/SkillRadar";
 
 const projects = [
   {
@@ -363,32 +365,45 @@ export default function Home() {
                 Bridging the gap between robust engineering and intuitive design. I build high-performance SaaS platforms, secure banking infrastructure, and scalable web applications that drive real business impact.
               </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    const contactSection = document.getElementById("contact");
-                    contactSection?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-cyan-500 to-pastel-cyan hover:from-cyan-400 hover:to-cyan-300 text-zinc-900 px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-cyan-500/25 w-full sm:w-auto"
-                >
-                  Get In Touch
-                </motion.button>
-                <Link href="/cv" className="w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center">
+                <Magnetic pull={0.1}>
                   <motion.button
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full inline-flex items-center justify-center border-2 border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 px-8 py-4 rounded-xl font-semibold transition-colors hover:border-cyan-500/50 hover:bg-cyan-50 dark:hover:bg-cyan-500/10"
+                    onClick={() => {
+                      const contactSection = document.getElementById("contact");
+                      contactSection?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-pastel-cyan hover:from-cyan-400 hover:to-cyan-300 text-zinc-900 px-8 py-4 rounded-xl font-bold transition-all shadow-lg shadow-cyan-500/25 w-full sm:w-auto relative overflow-hidden group"
                   >
-                    View My CV
+                    {/* Shine Reflection */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                    
+                    <span>Get In Touch</span>
+                    <Icons.Mail size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </motion.button>
+                </Magnetic>
+
+                <Link href="/cv" className="w-full sm:w-auto">
+                  <Magnetic pull={0.1}>
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.6 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-bold border border-zinc-200 dark:border-zinc-800 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md text-zinc-800 dark:text-zinc-200 transition-all hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] relative overflow-hidden group"
+                    >
+                      {/* Shine Reflection */}
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 dark:via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                      
+                      <Icons.FileText size={18} className="text-cyan-500 group-hover:rotate-6 transition-transform duration-300" />
+                      <span>View My CV</span>
+                    </motion.button>
+                  </Magnetic>
                 </Link>
               </div>
             </motion.div>            {/* Photo Section */}
@@ -572,6 +587,17 @@ export default function Home() {
               <PhotoStack />
             </motion.div>
           </div>
+
+          {/* Skill Radar Chart full-width section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="w-full pt-16 border-t border-zinc-200/50 dark:border-zinc-800/50"
+          >
+            <SkillRadar />
+          </motion.div>
         </motion.section>
 
         {/* Projects Section */}

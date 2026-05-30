@@ -9,9 +9,9 @@ import DecryptText from "@/components/DecryptText";
 const cvData = {
   name: "Fernanda Wawang Azraqi",
   title: "Front end developer | UI/UX designer",
-  location: "Surabaya, Indonesia",
+  location: "Mataram, Indonesia",
   email: "fernandaazra@gmail.com",
-  phone: "+62 821-3109-1937",
+  phone: "+62 859-3701-7367",
   linkedin: "https://www.linkedin.com/in/fernanda-wawang-azraqi-383980225/",
   cv: "https://drive.google.com/drive/folders/1l_rPw60Tl9BDfM40YPsfcbjP24jiwCrV?usp=sharing",
   profileImage: "/foto_kotak_ferza.png", // Using the squared version for CV
@@ -27,6 +27,17 @@ const cvData = {
     },
   ],
   experience: [
+    {
+      company: "Kriya Bank Mandiri",
+      location: "Mataram, Indonesia",
+      position: "Teller",
+      period: "May 2026 – Present",
+      achievements: [
+        "Processed daily banking transactions accurately and efficiently for customers.",
+        "Ensured daily cash reconciliation matched and adhered to banking SOPs.",
+        "Maintained strong customer relations and provided basic financial service solutions.",
+      ],
+    },
     {
       company: "PT Digital Inteligensi Nusantara",
       location: "Mataram, Indonesia",
@@ -126,7 +137,7 @@ export default function CVPage() {
     <div className="min-h-screen text-zinc-900 dark:text-zinc-100 overflow-hidden font-sans selection:bg-cyan-500/30">
 
       {/* Background ambient light effects */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 no-print">
         <div className="absolute inset-0 z-0">
           <Particles
             color="#06b6d4"
@@ -144,7 +155,7 @@ export default function CVPage() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-        className="sticky top-0 z-50 bg-white/60 dark:bg-black/40 backdrop-blur-xl border-b border-zinc-200/50 dark:border-zinc-800/50"
+        className="sticky top-0 z-50 bg-white/60 dark:bg-black/40 backdrop-blur-xl border-b border-zinc-200/50 dark:border-zinc-800/50 no-print"
       >
         <div className="max-w-5xl mx-auto px-6 lg:px-8 py-5 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <motion.h1
@@ -210,7 +221,7 @@ export default function CVPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-8"
+            className="mb-8 no-print"
           >
             <a
               href="/"
@@ -267,7 +278,7 @@ export default function CVPage() {
                 {cvData.profile}
               </p>
 
-              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start no-print">
                 <Magnetic pull={0.15}>
                   <a
                     href={cvData.cv}
@@ -277,6 +288,14 @@ export default function CVPage() {
                   >
                     Download Full CV
                   </a>
+                </Magnetic>
+                <Magnetic pull={0.15}>
+                  <button
+                    onClick={() => window.print()}
+                    className="cursor-pointer block px-6 py-3 bg-gradient-to-r from-cyan-500 to-pastel-cyan text-zinc-900 rounded-xl font-semibold transition-all shadow-lg shadow-cyan-500/25 hover:-translate-y-1"
+                  >
+                    🖨️ Print / Save PDF
+                  </button>
                 </Magnetic>
                 <Magnetic pull={0.15}>
                   <a
@@ -461,7 +480,7 @@ export default function CVPage() {
         </div>
       </main>
 
-      <footer className="border-t border-zinc-200/50 dark:border-zinc-800/50 py-12 text-center text-zinc-500 mt-20">
+      <footer className="border-t border-zinc-200/50 dark:border-zinc-800/50 py-12 text-center text-zinc-500 mt-20 no-print">
         <p className="font-medium text-sm">© {new Date().getFullYear()} Fernanda Wawang Azraqi. All rights reserved.</p>
         <p className="mt-2 text-xs opacity-75">Curriculum Vitae.</p>
       </footer>

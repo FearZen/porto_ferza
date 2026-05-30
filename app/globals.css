@@ -41,3 +41,97 @@ div[class*="min-h-screen"] {
 .perspective-1000 {
   perspective: 1000px;
 }
+
+@media print {
+  /* Prevent cutting off multi-page layouts due to viewport height restrictions */
+  html, body, .min-h-screen, main, div, section {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: unset !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 10pt !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Force multi-column layout grid to display as single column stack on paper */
+  .grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Force all scroll-animated components (Framer Motion opacity/transforms) to show immediately */
+  main, main *, section, section * {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    transition: none !important;
+  }
+
+  /* Force black text for maximum readability */
+  .text-zinc-900, .text-zinc-800, .text-zinc-700, .text-zinc-600, .text-zinc-500, .text-zinc-400, .text-cyan-600, .text-cyan-500, .text-white {
+    color: #111111 !important;
+  }
+
+  /* Remove shadows & background cards that create solid gray patches on print */
+  .shadow-xl, .shadow-2xl, .shadow-sm, .shadow-lg, .shadow-inner {
+    box-shadow: none !important;
+  }
+
+  /* Prevent page splits cutting through items */
+  .print-card, SpotlightCard, blockquote, li, .relative {
+    page-break-inside: avoid;
+  }
+
+  /* Reset transparent colors and blur elements */
+  .backdrop-blur-xl, .backdrop-blur-sm, .bg-white\/60, .bg-white\/40, .bg-zinc-100\/50, .dark\:bg-zinc-900\/40, .bg-zinc-900 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Standard borders style */
+  .border, .border-b, .border-t, .border-l-2 {
+    border-color: #d1d5db !important;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 15mm 20mm;
+}
+
+/* Hide floating action buttons during initial preloader screen */
+body.preloading .no-print,
+body.preloading .terminal-toggle,
+body.preloading [class*="fixed bottom-"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* Custom View Transition for Theme Switcher Circle Expansion */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+  mix-blend-mode: normal !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1 !important;
+}
+
+::view-transition-new(root) {
+  z-index: 99999 !important;
+}
+
+html::view-transition-group(root) {
+  animation-duration: 0.5s !important;
+}
